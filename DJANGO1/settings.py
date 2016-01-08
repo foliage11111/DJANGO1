@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 """
 Django settings for DJANGO1 project.
 
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ssq'
+    'shuang'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'DJANGO1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,  'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,10 +76,20 @@ WSGI_APPLICATION = 'DJANGO1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'orcl',  #sid not SERVICE_NAME
+        'USER': 'foliage',
+        'PASSWORD': 'foliage',
+        'HOST': '192.168.1.106',
+        'PORT': '1521',
     }
 }
 
@@ -123,5 +134,5 @@ STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
-    'D:\0tmpper\GitHub\DJANGO1\ssq\templates',
+    # 'D:\0tmpper\GitHub\DJANGO1\ssq\templates',  #后续的版本中人们觉得这个被诟病就写到上面去了，其实都可以实现#
 )
