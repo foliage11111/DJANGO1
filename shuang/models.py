@@ -6,16 +6,16 @@ from django.db import models
 # Create your models here. 测试一下
 
 class FoliageSsq(models.Model):
-    num = models.FloatField(primary_key=True)
-    r1 = models.FloatField(blank=True, null=True)
-    r2 = models.FloatField(blank=True, null=True)
-    r3 = models.FloatField(blank=True, null=True)
-    r4 = models.FloatField(blank=True, null=True)
-    r5 = models.FloatField(blank=True, null=True)
-    r6 = models.FloatField(blank=True, null=True)
-    b1 = models.FloatField(blank=True, null=True)
-    sum1 = models.FloatField(blank=True, null=True)
-    sum2 = models.FloatField(blank=True, null=True)
+    num = models.IntegerField(primary_key=True)
+    r1 = models.IntegerField(blank=True, null=True)
+    r2 = models.IntegerField(blank=True, null=True)
+    r3 = models.IntegerField(blank=True, null=True)
+    r4 = models.IntegerField(blank=True, null=True)
+    r5 = models.IntegerField(blank=True, null=True)
+    r6 = models.IntegerField(blank=True, null=True)
+    b1 = models.IntegerField(blank=True, null=True)
+    sum1 = models.IntegerField(blank=True, null=True)
+    sum2 = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -23,19 +23,19 @@ class FoliageSsq(models.Model):
 
 
 class TSsqShishibiao(models.Model):
-    num = models.FloatField(primary_key=True)
-    waijian = models.FloatField(blank=True, null=True)
-    taoshu = models.FloatField(blank=True, null=True)
-    r1 = models.FloatField(blank=True, null=True)
-    r2 = models.FloatField(blank=True, null=True)
-    r3 = models.FloatField(blank=True, null=True)
-    r4 = models.FloatField(blank=True, null=True)
-    r5 = models.FloatField(blank=True, null=True)
-    r6 = models.FloatField(blank=True, null=True)
-    b1 = models.FloatField(blank=True, null=True)
-    sum1 = models.FloatField(blank=True, null=True)
-    sum2 = models.FloatField(blank=True, null=True)
-    time = models.CharField(max_length=20, blank=True, null=True)
+    num = models.IntegerField(primary_key=True)
+    waijian = models.IntegerField(blank=True, null=True)
+    taoshu = models.IntegerField(blank=True, null=True)
+    r1 = models.IntegerField(blank=True, null=True)
+    r2 = models.IntegerField(blank=True, null=True)
+    r3 = models.IntegerField(blank=True, null=True)
+    r4 = models.IntegerField(blank=True, null=True)
+    r5 = models.IntegerField(blank=True, null=True)
+    r6 = models.IntegerField(blank=True, null=True)
+    b1 = models.IntegerField(blank=True, null=True)
+    sum1 = models.IntegerField(blank=True, null=True)
+    sum2 = models.IntegerField(blank=True, null=True)
+    time = models.DateField( blank=True, null=True)
 
     class Meta:
         managed = False

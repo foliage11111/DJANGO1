@@ -57,7 +57,7 @@ ROOT_URLCONF = 'DJANGO1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,  'templates')],
+        'DIRS': [os.path.join(BASE_DIR,  'templates')],# 'D:\0tmpper\GitHub\DJANGO1\ssq\templates'
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,16 +82,28 @@ WSGI_APPLICATION = 'DJANGO1.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'orcl',  #sid not SERVICE_NAME
         'USER': 'foliage',
         'PASSWORD': 'foliage',
-        'HOST': '192.168.1.106',
+        'HOST': 'localhost',
         'PORT': '1521',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.oracle',
+#         'NAME': 'orcl',  #sid not SERVICE_NAME
+#         'USER': 'foliage',
+#         'PASSWORD': 'foliage',
+#         'HOST': '192.168.1.106',
+#         'PORT': '1521',
+#     }
+# }
 
 
 # Password validation
@@ -132,7 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-    # 'D:\0tmpper\GitHub\DJANGO1\ssq\templates',  #后续的版本中人们觉得这个被诟病就写到上面去了，其实都可以实现#
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR,  'templates'),
+#     # 'D:\0tmpper\GitHub\DJANGO1\ssq\templates',  #后续的版本中人们觉得这个被诟病就写到上面去了，其实都可以实现#
+# )

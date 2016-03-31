@@ -2,13 +2,37 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>{{ title}}</title>
+    <title>双色球过往期数</title>
 </head>
 <body>
 <h1>
-    hello    {{ user }}
+
 </h1>
+    <table cellpadding="0" cellspacing="0" border="1" >
+     <tr>
+         <th>期数</th>
+         <th>红1</th>
+         <th>红2</th>
+         <th>红3</th>
+         <th>红4</th>
+         <th>红5</th>
+         <th>蓝1</th>
+         <th>和值</th>
+     </tr>
 
+    {% for i in ssq1  %}
+         <tr>
+         <td>{{ i.num }}</td>
+         <td>{{ i.r1 }}</td>
+         <td>{{ i.r2 }}</td>
+         <td>{{ i.r3 }}</td>
+         <td>{{ i.r4 }}</td>
+         <td>{{ i.r5 }}</td>
+         <td>{{ i.r6 }}</td>
+         <td>{{ i.sum1 }}</td>
+     </tr>
 
+    {% endfor %}
+    </table>
 </body>
 </html>
