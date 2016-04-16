@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- 包含头部信息用于适应不同设备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 可选: 包含 jQuery 库 -->
+<script src="{% static 'js/jquery-1.12.3.min.js'%}"></script>
+    <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
+
+ <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+ <style type="text/css" src="{% static 'bootstrap/css/bootstrap.css' %}"></style>
+     <!-- 包含 bootstrap 样式表 -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"rel="stylesheet">
+
+</head>
+<body>
+
+</body>
+
+    {% block js %}
+        <!--这里插入具体页面引用的js库，或者js代码-->
+     {% endblock %}
+    <script>
+    $(function () {
+        //这里编写base界面的on_ready代码
+
+        {% block on_ready %}
+            //这里插入具体界面的on_ready代码
+        {% endblock %}
+    });
+    </script>
+</html>

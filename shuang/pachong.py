@@ -8,8 +8,8 @@ import time
 # from urllib import urlopen
 # from urllib2 import request_host
 
-def get_web():
-    url3 = 'http://www.woying.com/kaijiang/ssqls/50.html'
+def get_web(num):
+    url3 = 'http://www.woying.com/kaijiang/ssqls/'+num+'.html'
 
     #f = urllib.urlopen(url='file:/D:\\myapplesapple_id.txt')  打开本地文件
     #f = urllib.urlopen(url='ftp://python:read@www.*****.com/')  打开ftp

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title>双色球过往期数</title>
+    <!-- 包含头部信息用于适应不同设备 -->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 可选: 包含 jQuery 库 -->
+<script src="{% static 'js/jquery-1.12.3.min.js'%}"></script>
+    <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
+
+ <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+ <link rel="stylesheet" href="{%static 'bootstrap/css/bootstrap.css'%}"/>
+     <!-- 包含 bootstrap 样式表 -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}"rel="stylesheet">
+</head>
+<body>
+
+<h1>查询工具</h1>
+    <div class="container">
+    <form action="searchforbasic" method="POST">
+
+        <table class="table table-striped table-bordered">
+
+                <div class="jumbotron">
+           <tr><td>双色球期数</td><td><input type="text" name="ssq_num"></td>
+            <td>查询批量</td><td><input type="text" value=50 name="batch"></td></tr>
+           <tr><td>开始期数</td><td><input type="text" name="start_num">
+           <td>结束期数</td><td><input type="text" name="end_num"></td></tr>
+           <tr><td></td><td><input type="submit" name="go" value="查询"></td></tr>
+             </div>
+
+        </table>
+    </form>
+
+<h2>查询结果</h2>
+    <div class="table-responsive">
+    <!--<table cellpadding="0" cellspacing="0" border="1" width="800"> -->
+    <table class="table table-striped table-bordered">
+     <tr>
+         <th>期数</th>
+         <th>红1</th>
+         <th>红2</th>
+         <th>红3</th>
+         <th>红4</th>
+         <th>红5</th>
+         <th>红6</th>
+         <th>蓝1</th>
+         <th>和值</th>
+     </tr>
+    {% if message != 'form fail' %}
+    {% for i in ssq1  %}
+         <tr>
+         <td>{{ i.num }}</td>
+         <td>{{ i.r1 }}</td>
+         <td>{{ i.r2 }}</td>
+         <td>{{ i.r3 }}</td>
+         <td>{{ i.r4 }}</td>
+         <td>{{ i.r5 }}</td>
+         <td>{{ i.r6 }}</td>
+           <td>{{ i.b1 }}</td>
+         <td>{{ i.sum1 }}</td>
+     </tr>
+
+    {% endfor %}
+
+    {% endif %}
+    </table>
+     </div>
+
+</div>
+
+<div class="container">
+      <h3>表格</h3>
+      <p>创建响应式表格 (将在小于768px的小型设备下水平滚动)。另外：添加交替单元格的背景色：</p>
+      <div class="table-responsive">
+       <table class="table table-striped table-bordered">
+         <thead>
+           <tr>
+             <th>#</th>
+             <th>Name</th>
+             <th>Street</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td>1</td>
+             <td>Anna Awesome</td>
+             <td>Broome Street</td>
+           </tr>
+           <tr>
+             <td>2</td>
+             <td>Debbie Dallas</td>
+             <td>Houston Street</td>
+           </tr>
+           <tr>
+             <td>3</td>
+             <td>John Doe</td>
+             <td>Madison Street</td>
+           </tr>
+         </tbody>
+       </table>
+      </div>
+     </div>
+</body>
+
+    {% block js %}
+        <!--这里插入具体页面引用的js库，或者js代码-->
+     {% endblock %}
+    <script>
+    $(function () {
+        //这里编写base界面的on_ready代码
+
+        {% block on_ready %}
+            //这里插入具体界面的on_ready代码
+        {% endblock %}
+    });
+    </script>
+</html>
