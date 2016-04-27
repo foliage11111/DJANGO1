@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -15,26 +16,53 @@
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"rel="stylesheet">
 </head>
 <body>
-<h1>
-    <form action="" method="get">
+<div class="container">
+<h1>网站抓取双色球</h1>
+    <form action="" method="post" role="form">
+ <div class="form-group">
+        <table class="table table-striped table-bordered">
 
-        <table>
-
-            <td>需要增加的批量</td><td><input type="text" value=50 name="batch"></td></tr>
-
+         <tr>需要增加的批量<td><input type="text" value= "{{batch}}" name="batch"></td></tr>
+<tr><td><button  type="submit" name="go"  class="btn btn-default">查询</button></td></tr>
         </table>
+     </div>
     </form>
 
-</h1>
-   message ： {% message %}
-      {% if message != 'form fail' %}
-    {% for i in ssq1  %}
-         <tr>
-         <td>期数</td>
-         <td>{{ i }}</td>
-     </tr>
-     {% endfor %}
+<h2>查询结果</h2>
+    <p>服务器返回的状态是：{{  message }}</p>
 
-    {% endif %}
+
+    <h3>成功插入的{{ ssq_len }}期,结果如下：</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+     <tr>
+
+         <th>期数</th>
+         <th>红1</th>
+         <th>红2</th>
+         <th>红3</th>
+         <th>红4</th>
+         <th>红5</th>
+         <th>红6</th>
+         <th>蓝1</th>
+            </tr>
+
+
+            {% for i in ssq1 %}
+            <tr>
+                {% for s in i %}
+                <td>
+                    {{ s }}
+
+                </td>
+                    {% endfor %}
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
+
+</div>
+
+
 </body>
 </html>

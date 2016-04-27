@@ -1,8 +1,8 @@
 #-*- coding:utf8 -*-
-from models import FoliageSsq
-from models import TSsqShishibiao_ext
-from models import TSsqShishibiao
-from models import FoliageSsq_ext
+from shuang.models import  FoliageSsq
+from shuang.models import TSsqShishibiao_ext
+from shuang.models import TSsqShishibiao
+from shuang.models import FoliageSsq_ext
 from django.conf import settings
 import os
 __author__ = 'zr'
@@ -43,12 +43,20 @@ def cal_basic_ext(tss_ball):
 
 
 def cal_horizontal_span(ball):
+    '''
+    红球差，后一个减前一个，返回一个list，对应5个水平位移
+    :param ball:
+    :return:
+    '''
     ssq=ball.list_red_balls()
-    #红球差，后一个减前一个，返回一个list，对应5个水平位移
     return [ssq[1]-ssq[0],ssq[2]-ssq[1],ssq[3]-ssq[2],ssq[4]-ssq[3],ssq[5]-ssq[4]]
 
 def cal_zhishu(ball):
-    #计算质数
+    '''
+    计算质数
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球质数个数
+    '''
     ssq_property=TSsqShishibiao_ext()
     ssq_property.prime_reds=0
     zhishu=[2,3,5,7,11,13,17,19,23,29,31]
@@ -59,7 +67,11 @@ def cal_zhishu(ball):
     return ssq_property.prime_reds
 
 def cal_odd_reds(ball):
-    #计算偶数
+    '''
+    计算偶数
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球偶数个数
+    '''
     ssq_property=TSsqShishibiao_ext()
     ssq_property.odd_reds=0
     ssq_red=ball.list_red_balls()
@@ -70,13 +82,22 @@ def cal_odd_reds(ball):
     return ssq_property.odd_reds
 
 def cal_all_kuadu(ball):
-    #返回收尾跨度
+    '''
+    计算首尾跨度
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球首尾跨度
+    '''
     if ball:
         return ball.r6-ball.r1
     else:
         return 0
 
 def cal_weihe(ball):
+    '''
+    计算尾和
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球尾和，不包含蓝球
+    '''
     ssq_red=ball.list_red_balls()
     ssq_property=TSsqShishibiao_ext()
     ssq_property.red_weihe=0
@@ -88,6 +109,11 @@ def cal_weihe(ball):
 
 
 def cal_lianhao(ball):
+    '''
+    计算连号个数
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球连号个数
+    '''
     ssq_property=TSsqShishibiao_ext()
     ssq_property.red_lianhaoshu=0
     list=cal_horizontal_span(ball)
@@ -100,7 +126,11 @@ def cal_lianhao(ball):
     return ssq_property.red_lianhaoshu
 
 def cal_blue_differ(now_ball):
-    #输入的应该简单，属于一个ssq，
+ '''
+计算蓝球跟上一期的差异
+:param 输入Foliagessq或者Tssqshishibiao的对象:
+:return:蓝球差异
+ '''
  try:
     num=str(now_ball.num)[4:7]
     q=now_ball.num
@@ -121,7 +151,11 @@ def cal_blue_differ(now_ball):
      return False
 
 def cal_vertical_red(now_ball):
-    #输入的应该简单，属于一个ssq，
+    '''
+    计算红球上下期差异，已考虑红球跨年相减的情况
+    :param 输入Foliagessq或者Tssqshishibiao的对象:
+    :return:红球跟上一期的差异列表，如果有问题返回[0,0,0,0,0,0]
+    '''
     num=str(now_ball.num)[4:7]
     q=now_ball.num
     try:

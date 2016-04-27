@@ -9,6 +9,11 @@ import time
 # from urllib2 import request_host
 
 def get_web(num):
+    '''
+    [[T返回期数,红球,蓝球],]
+    :param num:
+    :return:T返回期数,红球,蓝球
+    '''
     url3 = 'http://www.woying.com/kaijiang/ssqls/'+num+'.html'
 
     #f = urllib.urlopen(url='file:/D:\\myapplesapple_id.txt')  打开本地文件
@@ -34,7 +39,7 @@ def get_web(num):
             # 对于FTP来说，返回的报头包含'content-length'。对于本地文件，返回的报头包含‘content-length’和'content-type'字段。
             #要注意的是，类文件对象u以二进制模式操作。如果需要以文本形式处理响应数据，则需要使用codecs模块或类似方式解码数据。
 
-    print  response.getcode()
+    #print  response.getcode()
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
         print response.info()
         print req1.headers
@@ -42,14 +47,15 @@ def get_web(num):
     # print cont
     # ssq_list=re.subn(r'(\r\n)+|\s+','',cont)
     ssq_list=re.subn(r'(\r+|\n+)+\s+','',cont) ##去除重复的内容
-    print ssq_list
+    # print ssq_list
     table1=re.findall(r'tbody.*?tbody',ssq_list[0]) ##找出主table
     ssq_list=re.findall(r'<td>\d{7}.*?"blue">\d{2}</td>',table1[0]) ##找出每一期的记录分段
     ssq1 =[]
     for char in ssq_list:#制作成为list然后塞入一个list#
        test1=char[4:11]+','+char[char.find('\"red\">')+6:char.find('</td><td class=\"blue\">')].replace('&nbsp;',',')+','+char[char.find('\"blue\">')+7:len(char)-5]
-       ssq1.append(test1.split(','))
-    return ssq1
+       ssq1.append(map(int,(test1.split(','))))
+    ssq1.reverse()
+    return ssq1,response.getcode()
 
      #   time.sleep(5)#休息时间
     #print response.read()

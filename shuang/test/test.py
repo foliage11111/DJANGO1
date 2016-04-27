@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 __author__ = 'zr'
 import re
 import datetime
@@ -10,3 +11,25 @@ import datetime
 
 print datetime.date.today()
 #    Article.objects.filter(Q(headline__startswith='Hello') | Q(headline__startswith='Goodbye'))   有待测试
+
+ssq1=map(int,['05', '14', '20', '26', '30', '33', '12'])
+print ssq1
+print ssq1.reverse()
+print ssq1
+
+def dict_2_str_orm(dictin):
+    '''
+    将字典变成，key'value' , key'value'的形式
+    '''
+    tmplist = []
+    for k, v in dictin.items():
+        if v:  #为空则跳过
+            tmp = "%s%s" % (str(k), str(v))#数字
+            tmplist.append(' ' + tmp + ' ')
+           # print ' and '.join(tmplist)
+    if tmplist:
+        return ' , '.join(tmplist)
+    else:
+        return ''
+
+print dict_2_str_orm({'id=':1212,'name__contain=':'hongqiu'})

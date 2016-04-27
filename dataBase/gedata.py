@@ -111,6 +111,36 @@ def dict_2_str_and(dictin):
         tmplist.append(' ' + tmp + ' ')
     return ' and '.join(tmplist)
 
+def dict_2_str_all(dictin):
+    '''
+    将字典变成，key'value' and key'value'的形式
+    '''
+    tmplist = []
+    for k, v in dictin.items():
+        if v:  #为空则跳过
+            tmp = "%s%s" % (str(k), str(v))#数字
+            tmplist.append(' ' + tmp + ' ')
+           # print ' and '.join(tmplist)
+    if tmplist:
+        return ' and '.join(tmplist)
+    else:
+        return ''
+
+def dict_2_str_orm(dictin):
+    '''
+    将字典变成，key'value' , key'value'的形式
+    '''
+    tmplist = []
+    for k, v in dictin.items():
+        if v:  #为空则跳过
+            tmp = "%s%s" % (str(k), str(v))#数字
+            tmplist.append(' ' + tmp + ' ')
+           # print ' and '.join(tmplist)
+    if tmplist:
+        return ' , '.join(tmplist)
+    else:
+        return ''
+
 def fSqlResult(r,key_list):
  #r @tuple 数据库fetchall的结果
  # #key_list @list 查询字段的keys

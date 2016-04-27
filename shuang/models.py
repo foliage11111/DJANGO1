@@ -10,6 +10,9 @@ class ssq_formula(models.Model):
     formula_name = models.CharField(null=False,max_length=100)
     formula_express= models.CharField(null=False,max_length=100)
     formula_note= models.CharField(null=False,max_length=200)
+    create_date=models.DateField(null=True)
+    update_date=models.DateField(null=True)
+    formula_type=models.CharField(null=True,max_length=100)
     attribute1= models.CharField(null=True,max_length=100)
     attribute2= models.CharField(null=True,max_length=100)
     attribute3= models.CharField(null=True,max_length=100)
@@ -25,6 +28,8 @@ class ssq_formula_fact(models.Model):
     periods= models.IntegerField(null=False)
     result =models.BooleanField(null=False)
     formula_value=models.CharField(null=False,max_length=100)
+    formula_type=models.CharField(null=True,max_length=100)
+    create_date=models.DateField(null=True)
     attribute1 =models.CharField(null=True,max_length=100)
     attribute2 =models.CharField(null=True,max_length=100)
     attribute3 =models.CharField(null=True,max_length=100)
@@ -40,6 +45,7 @@ class formula_fact_per(models.Model):
     periods = models.IntegerField(null=False)
     fact_id = models.IntegerField(null=False)
     result = models.BooleanField(null=False)
+    create_date=models.DateField(null=True)
     formula_id = models.IntegerField(null=False)
     formula_in5 = models.FloatField(null=False)
     formula_in10 = models.FloatField(null=False)
@@ -144,7 +150,7 @@ class TSsqShishibiao(models.Model):
     time = models.DateField( blank=True, null=True)
 
     def chushihua(self,num_list):
-        print num_list
+
         if  num_list:
             self.num=num_list[0]
             self.r1=num_list[1]
@@ -160,7 +166,14 @@ class TSsqShishibiao(models.Model):
 
             num_all=FoliageSsq.objects.filter(r1=self.r1,r2=self.r2,r3=self.r3,r4=self.r4,r5=self.r5,r6=self.r6,b1=self.b1)
             if  num_all:
-                self.waijian=num_all.all()[0].num
+                ssq_w=num_all.all()[0]
+                self.waijian=ssq_w.num
+             #   print 'waijian: ',self.waijian,' ssq: ',ssq_w.list_all_balls()
+            else:
+                self.waijian=1
+          #  print self.num,self.list_all_balls()
+
+
 
     def list_all_balls(self):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
