@@ -49,10 +49,10 @@ def get_all_rows_cond(conditions):
         sql =sql+ ' and '+s
         sql += ' order by ts.num desc '
       else:
-        sql+=' and  rownum<=100 order by ts.num desc '
+        sql+='  order by ts.num desc  limit 0,100'
       print sql
    else:
-      sql+=' and  rownum<=100 order by ts.num desc '
+      sql+=' order by ts.num desc limit 0,100 '
    #print sql
    cur=SqlConn()
    ssq1=cur.execute(sql)
@@ -92,12 +92,13 @@ def get_all_rows():
        te.vertical_red5,
        te.vertical_red6
   from tssqshishibiao_ext te, t_ssq_shishibiao ts
- where ts.num = te.id and  rownum<=100'''
+ where ts.num = te.id  '''
 
     vorder=' order by ts.num desc'
+    limits=' limit 0,100 '
 
     # print sql_context
     cur=SqlConn()
-    ssq1=cur.execute(sql_context+vorder)
+    ssq1=cur.execute(sql_context+vorder+limits)
     cur.close()
     return ssq1

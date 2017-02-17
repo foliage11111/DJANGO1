@@ -109,7 +109,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'foliagelj1',
         'HOST': 'localhost',
-        'PORT': '1521',
+        'PORT': '3306',
     }
 }
 DEFAULT_INDEX_TABLESPACE='USERS'

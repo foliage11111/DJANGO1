@@ -1,7 +1,7 @@
 #-*- coding:utf8 -*-
 __author__ = 'zr'
 #这是一个人自己写的封装sql的方式，好处还是有的，如果不是jango自带了数据库操作方法，models有orm的话，这种封装方式估计就是我简易操作数据库的方式了。
-import cx_Oracle
+import MySQLdb
 
 # conn= getdata.SqlConn()
 # key_list=['num','r1','r2','r3','r4','r5','r6','b1','sum1']
@@ -13,7 +13,7 @@ import cx_Oracle
 
 class SqlConn():
     def __init__(self):
-        self.conn= cx_Oracle.connect('foliage/foliage@localhost/orcl')#DBpool.pool.connection()
+        self.conn= MySQLdb.connect(host='localhost',user='root',passwd='foliagelj1',db='ssq')#DBpool.pool.connection()
         self.cur=self.conn.cursor()
     def cur(self):
         return self.cur()
