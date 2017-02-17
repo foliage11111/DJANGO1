@@ -92,12 +92,22 @@ WSGI_APPLICATION = 'DJANGO1.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.oracle',
+#         'NAME': 'orcl',  #sid not SERVICE_NAME
+#         'USER': 'foliage',
+#         'PASSWORD': 'foliage',
+#         'HOST': 'localhost',
+#         'PORT': '1521',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'orcl',  #sid not SERVICE_NAME
-        'USER': 'foliage',
-        'PASSWORD': 'foliage',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ssq',  #sid not SERVICE_NAME
+        'USER': 'root',
+        'PASSWORD': 'foliagelj1',
         'HOST': 'localhost',
         'PORT': '1521',
     }
