@@ -1,8 +1,6 @@
 #-*- coding:utf8 -*-
-from shuang.models import  FoliageSsq
-from shuang.models import TSsqShishibiao_ext
-from shuang.models import TSsqShishibiao
-from shuang.models import FoliageSsq_ext
+from shuang.src.basic.basic_model import FoliageSsq, FoliageSsq_ext, TSsqShishibiao, TSsqShishibiao_ext
+
 from django.conf import settings
 import os
 __author__ = 'zr'
