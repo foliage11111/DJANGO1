@@ -20,8 +20,9 @@ def formula_query(request):
         conditions={'id=':request.POST['f_id'],'name__contain=':request.POST['f_name'],'limit 0,':request.POST['batch'],'order by':' ts.num desc'}
         sql1 = dict_2_str_orm(conditions)
         if request.POST['type_btn']=='delete': #删除
-
-            formula_list=ssq_formula.objects.filter(id=request.POST['formula_id'])
+            id_list = request.POST.getlist('test','')#只能取得表单里面的数据
+            print id_list
+            formula_list=ssq_formula.objects.filter()
             if formula_list:
                 formula_list[0].delete()
                 Context={'fl1':formula_list,'message':'done'}
