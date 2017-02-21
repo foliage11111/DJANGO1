@@ -28,7 +28,7 @@ def normal(request):
     :return:
     """
     t = loader.get_template('normal_search.html')
-    ssq1= TSsqShishibiao.objects.filter(num__gte=2015001)
+    ssq1= TSsqShishibiao.objects.filter(num__gte=2017001)
     ##ssq1=FoliageSsq.objects.filter(num__lt=2003001,num__gt=2003001-1001).order_by("-num")
     # cc= cal_shishibiao_ext(ssq1[0])
     # itemDir = cc.__dict__
@@ -66,7 +66,7 @@ def search_allrows(request):
     return HttpResponse(t.render(Context))
 
 
-def all_basic_ext1(request):
+def all_fact_ext(request):
     """
     事实表的外置扩展表的一键生成
     :param request:

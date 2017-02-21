@@ -73,7 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.static',
+                # 'django.core.context_processors.static',
             ],
         },
     },
@@ -107,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ssq',  #sid not SERVICE_NAME
         'USER': 'root',
-        'PASSWORD': 'foliagelj1',
+        'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -148,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 

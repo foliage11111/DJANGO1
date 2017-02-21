@@ -26,22 +26,32 @@
    </div>
    <div>
       <ul class="nav navbar-nav">
-         <li class="active"><a href="/shuang/spider" target="mainFrame">爬虫</a></li>
-         <li><a href="#">待用</a></li>
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               Java
-               <b class="caret"></b>
-            </a>
+         <li class="active"><a class="dropdown-toggle" data-toggle="dropdown">管理</>
+          <ul class="dropdown-menu">
+               <li><a href="/admin" target="mainFrame">后台管理</a></li>
+               <li><a href="/shuang/spider" target="mainFrame">爬虫</a></li>
+
+               <li class="divider"></li>
+             </ul>
+
+         </li>
+
+         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">普通查询</a>
             <ul class="dropdown-menu">
                <li><a href="/shuang/normal" target="mainFrame">普通查询页面</a></li>
                <li><a href="/shuang/searchforbasic" target="mainFrame">扩展属性查询</a></li>
 
                <li class="divider"></li>
-               <li><a href="/shuang/gongshi" target="mainFrame">公式定义</a></li>
-                <li><a href="/shuang/gongshi" target="mainFrame">正确率</a></li>
-               <li class="divider"></li>
-               <li><a href="#" target="mainFrame">自选号码</a></li>
+             </ul>
+          </li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">公式管理<b class="carete"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/shuang/quer_formula" target="mainFrame">公式查询</a></li>
+                <li><a href="/shuang/define_formula" target="mainFrame">公式定义</a></li>
+                <li><a href="#" target="mainFrame">正确率</a></li>
+                <li class="divider"></li>
+                <li><a href="#" target="mainFrame">自选号码</a></li>
             </ul>
          </li>
       </ul>

@@ -17,8 +17,9 @@ def formula_query(request):
     """
     t = loader.get_template('formula.html')
     if request.method=='POST':
-        conditions={'id=':request.POST['f_id'],'name__contain=':request.POST['f_name']}
-        if request.POST['del_btn']=='delete': #删除
+        conditions={'id=':request.POST['f_id'],'name__contain=':request.POST['f_name'],'limit 0,':request.POST['batch'],'order by':' ts.num desc'}
+        sql1 = dict_2_str_orm(conditions)
+        if request.POST['type_btn']=='delete': #删除
 
             formula_list=ssq_formula.objects.filter(id=request.POST['formula_id'])
             if formula_list:
@@ -29,13 +30,19 @@ def formula_query(request):
                 Context={'fl1':formula_list,'message':'no such formula'}
                 return HttpResponse(t.render(Context))
 
-        if request.POST['qur_btn']=='query':#查询
-            sql1=dict_2_str_orm(conditions)
+        elif request.POST['type_btn']=='query':#查询
+            print 'query'
             if sql1:
                 formula_list=ssq_formula.objects.filter()
-                Context={'fl1':formula_list,'message':'done'}
+                Context={'f_list':formula_list,'message':'done'}
                 return HttpResponse(t.render(Context))
 
+        else:
+
+            if sql1:
+                formula_list = ssq_formula.objects.filter()
+                Context = {'f_list': formula_list, 'message': 'done'}
+                return HttpResponse(t.render(Context))
     formula_list=ssq_formula.objects.filter(create_date__gt='2016-04-21')#为空则返回所有
     Context={'fl1':formula_list,'message':'form fail'}
     return HttpResponse(t.render(Context))

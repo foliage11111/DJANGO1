@@ -21,49 +21,52 @@
 
 
     <div class="container">
-    <h1>查询工具</h1>
-    <form action="searchforbasic" method="POST" role="form">
+    <h1>查询公式</h1>
+    <form action="quer_formula" method="POST" role="form">
         <div class="form-group">
         <table class="table table-striped table-bordered">
 
 
-           <tr><td>双色球期数</td><td><input type="text" name="ssq_num" class="form-control"></td>
+           <tr><td>公式序号</td><td><input type="text" name="f_id" class="form-control"></td>
+           <tr><td>公式名称</td><td><input type="text" name="f_name" class="form-control"></td>
             <td>查询批量</td><td><input type="text"  name="batch" class="form-control" placeholder=50 ></td></tr>
            <tr><td>开始期数</td><td><input type="text" name="start_num" class="form-control">
            <td>结束期数</td><td><input type="text" name="end_num" class="form-control"></td></tr>
 
         </table>
             </div>
-        <tr><td></td><td><button  type="submit" name="go"  class="btn btn-default">查询</button></td></tr>
-        <tr><td></td><td><button  type="submit" name="go"  class="btn btn-default">新增</button></td></tr>
+        <tr><td></td><td><button  type="button" id="qur_btn"  class="btn btn-default">查询</button></td></tr>
+        <tr><td></td><td><button  type="button" id="add_btn"  class="btn btn-default">新增</button></td></tr>
+        <tr><td></td><td><button  type="button" id="del_btn"  class="btn btn-default">删除</button></td></tr>
+        <input type="hidden" id="type_btn" name="type_btn">
     </form>
 
-<h2>查询结果</h2>
+<h2>公式列表</h2>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
      <tr>
          <th>序号</th>
-         <th>公式名字</th>
-         <th>公式详细信息</th>
-         <th>红3</th>
-         <th>红4</th>
-         <th>红5</th>
-         <th>红6</th>
-         <th>蓝1</th>
-         <th>和值</th>
+         <th>名字</th>
+         <th>表达式</th>
+         <th>备注</th>
+         <th>类型</th>
+         <th>创建日期</th>
+         <th>更新日期</th>
+         <th>备用1</th>
+         <th>备用2</th>
      </tr>
     {% if message != 'form fail' %}
-    {% for i in ssq1  %}
+    {% for i in f_list  %}
          <tr>
-         <td>{{ i.num }}</td>
-         <td>{{ i.r1 }}</td>
-         <td>{{ i.r2 }}</td>
-         <td>{{ i.r3 }}</td>
-         <td>{{ i.r4 }}</td>
-         <td>{{ i.r5 }}</td>
-         <td>{{ i.r6 }}</td>
-           <td>{{ i.b1 }}</td>
-         <td>{{ i.sum1 }}</td>
+         <td>{{ i.formula_id }}</td>
+         <td>{{ i.formula_name }}</td>
+         <td>{{ i.formula_express }}</td>
+         <td>{{ i.formula_note }}</td>
+         <td>{{ i.formula_type }}</td>
+         <td>{{ i.create_date }}</td>
+         <td>{{ i.update_date }}</td>
+         <td>{{ i.attribute1 }}</td>
+         <td>{{ i.attribute2 }}</td>
      </tr>
 
     {% endfor %}
@@ -78,12 +81,13 @@
         <!--这里插入具体页面引用的js库，或者js代码-->
      {% endblock %}
     <script>
-    $(function () {
-        //这里编写base界面的on_ready代码
 
-        {% block on_ready %}
-            //这里插入具体界面的on_ready代码
-        {% endblock %}
-    });
+    $(document).ready(function(){
+        $("#qur_btn").click(function(){
+            alert("查询被点击了。");
+            $("#type_btn").val('query');
+            $("form").submit()
+         });
+        });
     </script>
 </html>

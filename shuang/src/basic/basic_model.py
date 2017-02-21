@@ -35,7 +35,7 @@ class FoliageSsq(models.Model):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'foliage_ssq'
 
 
