@@ -5,12 +5,12 @@ __author__ = 'zr'
 '''
 
 from dataBase.gedata import SqlConn
-from dataBase.gedata import dict_2_str_all
+from dataBase.gedata import dict_2_str_mysql
 
 def get_all_rows_cond(conditions):
    '''
    带条件的查询，返回事实表和扩展的的联合查询结果
-   :param : conditions={'ts.num=':'总期数','ts.num>':'从哪个起','ts.num<':'到哪个为止','rownum<=':'总数'}
+   :param : conditions={'ts.num=':'总期数','ts.num>':'从哪个起','ts.num<':'到哪个为止',order by ,'limit<=':'总数'}
    :return: 返回cur运行结果
    '''
 
@@ -44,16 +44,18 @@ def get_all_rows_cond(conditions):
  where ts.num = te.id '''
 
    if conditions:
-      s=dict_2_str_all(conditions)
+      s=dict_2_str_mysql(conditions)
       if s :
-        sql =sql+ ' and '+s
-        sql += ' order by ts.num desc '
+        if s.startswith(' order') or s.startswith(' limit'):
+            sql=sql+s
+        else:
+            sql =sql+ ' and '+s
       else:
-        sql+='  order by ts.num desc  limit 0,100'
-      print sql
+        sql+='  order by ts.num desc  limit 0,50'
+
    else:
-      sql+=' order by ts.num desc limit 0,100 '
-   #print sql
+      sql+=' order by ts.num desc limit 0,50 '
+   print sql
    cur=SqlConn()
    ssq1=cur.execute(sql)
    cur.close()
@@ -97,7 +99,7 @@ def get_all_rows():
     vorder=' order by ts.num desc'
     limits=' limit 0,100 '
 
-    # print sql_context
+    print sql_context+vorder+limits
     cur=SqlConn()
     ssq1=cur.execute(sql_context+vorder+limits)
     cur.close()

@@ -111,6 +111,32 @@ def dict_2_str_and(dictin):
         tmplist.append(' ' + tmp + ' ')
     return ' and '.join(tmplist)
 
+
+def dict_2_str_mysql(dictin):
+    '''
+    将字典变成，key'value' and key'value'的形式
+    '''
+    tmplist = []
+    tmpsql=''
+    tmporder= ''
+    tmplimit= ''
+    print dictin.items()
+    for k, v in dictin.items():
+        if v:  #为空则跳过
+            tmp = "%s%s" % (str(k), str(v))#数字
+            if 'limit' in tmp:
+                tmplimit=' '+tmp
+            elif 'order' in tmp:
+                tmporder=' '+tmp
+            else:
+                tmplist.append(' ' + tmp + ' ')
+                tmpsql=' and '.join(tmplist)
+           # print ' and '.join(tmplist)
+    if tmplist or tmporder or tmplimit:
+        return tmpsql+ tmporder+tmplimit
+    else:
+        return ''
+
 def dict_2_str_all(dictin):
     '''
     将字典变成，key'value' and key'value'的形式
@@ -122,6 +148,7 @@ def dict_2_str_all(dictin):
             tmplist.append(' ' + tmp + ' ')
            # print ' and '.join(tmplist)
     if tmplist:
+
         return ' and '.join(tmplist)
     else:
         return ''

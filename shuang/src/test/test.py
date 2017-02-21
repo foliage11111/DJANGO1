@@ -17,19 +17,33 @@ print ssq1
 print ssq1.reverse()
 print ssq1
 
-def dict_2_str_orm(dictin):
+
+def dict_2_str_mysql(dictin):
     '''
-    将字典变成，key'value' , key'value'的形式
+    将字典变成，key'value' and key'value'的形式
     '''
     tmplist = []
+    tmpsql=''
+    tmporder= ''
+    tmplimit= ''
+    print dictin.items()
     for k, v in dictin.items():
         if v:  #为空则跳过
             tmp = "%s%s" % (str(k), str(v))#数字
-            tmplist.append(' ' + tmp + ' ')
+            if 'limit' in tmp:
+                tmplimit=' '+tmp
+            elif 'order' in tmp:
+                tmporder=' '+tmp
+            else:
+                tmplist.append(' ' + tmp + ' ')
+                tmpsql=' and '.join(tmplist)
            # print ' and '.join(tmplist)
-    if tmplist:
-        return ' , '.join(tmplist)
+    if tmplist or tmporder or tmplimit:
+        return tmpsql+ tmporder+tmplimit
     else:
         return ''
-
-print dict_2_str_orm({'id=':1212,'name__contain=':'hongqiu'})
+s=dict_2_str_mysql({'limit 0,':10,'order by':' ts.num desc'})
+# print dict_2_str_mysql({'id=':1212,'name__contain=':'hongqiu','limit 0,':10,'order by':' ts.num desc'})
+print s
+print 'order' in 'order by'
+print s.startswith(' order')

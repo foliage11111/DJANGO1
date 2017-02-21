@@ -48,12 +48,16 @@ def search_allrows(request):
 
     if request.method=='POST':# if 'ssq_num' in request.GET:#GET是一个dict，使用文本框的name作为key #在这里需要做一个判断，是否存在提交数据，以免报错
 
-        conditions={'ts.num=':request.POST['ssq_num'],'ts.num>':request.POST['start_num'],'ts.num<':request.POST['end_num'],'rownum<=':request.POST['batch']}
+        conditions={'ts.num=':request.POST['ssq_num'],'ts.num>':request.POST['start_num'],'ts.num<':request.POST['end_num'],'limit 0,':request.POST['batch'],'order by':' ts.num desc'}
 
         if conditions['ts.num=']:
             del conditions['ts.num>']
             del conditions['ts.num<']
-            del conditions['rownum<=']
+        if conditions['limit 0,']:
+            print conditions
+        else:
+            del conditions['limit 0,']
+
         ssq1=get_all_rows_cond(conditions)
         Context={'ssq1':ssq1,'message':'done'}
         return HttpResponse(t.render(Context))
