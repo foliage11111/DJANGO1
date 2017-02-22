@@ -15,7 +15,7 @@ def index(request):
     :param request:
     :return:
     '''
-    t = loader.get_template("basic/test3.html")
+    t = loader.get_template("basic/mainFrame.html")
 
     return HttpResponse(t.render(Context))
 
