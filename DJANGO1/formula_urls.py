@@ -18,29 +18,11 @@ Including another URLconf
 """
 
 from django.conf.urls import url,include
-from django.contrib import admin
-from shuang.src.basic.basic_controller import index, normal, search_allrows, all_fact_ext, all_basic_ext
-from shuang.src.spider.spdier_controller import spider_search
 from shuang.src.formula.formula_controller import formula_query, define_formula
 
 from shuang.views import test
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^shuang/index$',index), #基本求查询页面
-    url(r'^shuang/normal$',normal), #基本查询页面
-    url(r'^shuang/searchforbasic$',search_allrows), #查询所有的列 查询转跳
-    url(r'^shuang/spider$',spider_search),#爬虫页面
-    url(r'^shuang/', include("formula_urls"))#
-    ,
+    url(r'^quer_formula$', formula_query),
+    url(r'^define_formula$', define_formula),
 ]
-
-urlpatterns.extend(
-    [
-    url(r'^shuang/cal_baisc_ext$', all_basic_ext),  # 充填全局表的扩展表
-    url(r'^shuang/cal_fact_ext$', all_fact_ext),  # 充填事实表的扩展表
-    url(r'^shuang/test$', test),  # 测试bootstrap用
-    ]
-)
-
-

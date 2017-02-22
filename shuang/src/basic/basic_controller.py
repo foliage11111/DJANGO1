@@ -56,7 +56,7 @@ def search_allrows(request):
         if conditions['limit 0,']:
             print conditions
         else:
-            del conditions['limit 0,']
+            conditions['limit 0,']=50#默认只拿50个，免得崩溃
 
         ssq1=get_all_rows_cond(conditions)
         Context={'ssq1':ssq1,'message':'done'}
