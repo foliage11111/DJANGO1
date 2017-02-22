@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from shuang.src.basic.basic_model import TSsqShishibiao
 from shuang.src.basic.basic_controller import cal_shishibiao_ext
-from shuang.src.pachong.pachong import get_web
+from shuang.src.spider.pachong import get_web
 
 __author__ = 'zr'
 

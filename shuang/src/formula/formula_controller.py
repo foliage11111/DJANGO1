@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from dataBase.gedata import dict_2_str_orm
-from shuang.src.chaxun.front_query import get_all_rows_cond
+from shuang.src.front_query.front_query import get_all_rows_cond
 from shuang.src.formula.formula_model import ssq_formula
 
 __author__ = 'zr'
@@ -15,7 +15,7 @@ def formula_query(request):
     :param request:
     :return:
     """
-    t = loader.get_template('formula.html')
+    t = loader.get_template('formula/formula.html')
     if request.method=='POST':
         conditions={'id=':request.POST['f_id'],'name__contain=':request.POST['f_name'],'limit 0,':request.POST['batch'],'order by':' ts.num desc'}
         sql1 = dict_2_str_orm(conditions)
@@ -55,7 +55,7 @@ def define_formula(request):
     :param request:
     :return:
     """
-    t = loader.get_template('def_formula.html')
+    t = loader.get_template('formula/def_formula.html')
 
     if request.method=='POST':# if 'ssq_num' in request.GET:#GET是一个dict，使用文本框的name作为key #在这里需要做一个判断，是否存在提交数据，以免报错
 

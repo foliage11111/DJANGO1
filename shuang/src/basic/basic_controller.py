@@ -1,8 +1,8 @@
 #-*- coding: utf8 -*-
 from django.http import HttpResponse
 from django.template import loader, Context
-from shuang.src.chaxun.front_query import get_all_rows_cond
-from shuang.src.jisuanqi.calculate_property import cal_shishibiao_ext, cal_basic_ext
+from shuang.src.front_query.front_query import get_all_rows_cond
+from shuang.src.calculater.calculate_property import cal_shishibiao_ext, cal_basic_ext
 
 from shuang.src.basic.basic_model import FoliageSsq, TSsqShishibiao
 
@@ -15,7 +15,7 @@ def index(request):
     :param request:
     :return:
     '''
-    t = loader.get_template('test3.html')
+    t = loader.get_template("basic/test3.html")
 
     return HttpResponse(t.render(Context))
 
@@ -27,7 +27,7 @@ def normal(request):
     :param request:
     :return:
     """
-    t = loader.get_template('normal_search.html')
+    t = loader.get_template('basic/normal_search.html')
     ssq1= TSsqShishibiao.objects.filter(num__gte=2017001)
     ##ssq1=FoliageSsq.objects.filter(num__lt=2003001,num__gt=2003001-1001).order_by("-num")
     # cc= cal_shishibiao_ext(ssq1[0])
@@ -44,7 +44,7 @@ def search_allrows(request):
     :param request:
     :return:
     """
-    t = loader.get_template('sepcial_search.html')
+    t = loader.get_template('basic/sepcial_search.html')
 
     if request.method=='POST':# if 'ssq_num' in request.GET:#GET是一个dict，使用文本框的name作为key #在这里需要做一个判断，是否存在提交数据，以免报错
 
@@ -81,7 +81,7 @@ def all_fact_ext(request):
         ext.save()
 
 
-    t = loader.get_template('normal_search.html')
+    t = loader.get_template('basic/normal_search.html')
     ssq1= TSsqShishibiao.objects.filter(num=2013001)
     ##ssq1=FoliageSsq.objects.filter(num__lt=2003001,num__gt=2003001-1001).order_by("-num")
     # cc= cal_shishibiao_ext(ssq1[0])
@@ -113,7 +113,7 @@ def all_basic_ext(request):
             ext.save()
 
 
-    t = loader.get_template('normal_search.html')
+    t = loader.get_template('basic/normal_search.html')
     ssq1= TSsqShishibiao.objects.filter(num=2013001)
     ##ssq1=FoliageSsq.objects.filter(num__lt=2003001,num__gt=2003001-1001).order_by("-num")
     # cc= cal_shishibiao_ext(ssq1[0])
