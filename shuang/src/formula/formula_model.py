@@ -21,6 +21,7 @@ class ssq_formula(models.Model):
     attribute4= models.CharField(null=True,max_length=100)
     attribute5= models.CharField(null=True,max_length=100)
 
+
     class Meta:
         managed = True
         db_table = 'ssq_formula'

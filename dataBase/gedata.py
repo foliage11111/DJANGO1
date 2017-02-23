@@ -159,14 +159,12 @@ def dict_2_str_orm(dictin):
     '''
     tmplist = []
     for k, v in dictin.items():
-        if v:  #为空则跳过
-            tmp = "%s%s" % (str(k), str(v))#数字
-            tmplist.append(' ' + tmp + ' ')
-           # print ' and '.join(tmplist)
-    if tmplist:
-        return ' , '.join(tmplist)
+        if len(v)==0:
+            dictin.pop(k)# print ' and '.join(tmplist)
+    if dictin:
+        return dictin
     else:
-        return ''
+        return {}
 
 def fSqlResult(r,key_list):
  #r @tuple 数据库fetchall的结果

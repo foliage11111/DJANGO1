@@ -17,8 +17,12 @@ def formula_query(request):
     """
     t = loader.get_template('formula/formula.html')
     if request.method=='POST':
-        conditions={'id=':request.POST['f_id'],'name__contain=':request.POST['f_name'],'limit 0,':request.POST['batch'],'order by':' ts.num desc'}
+        conditions={'formula_id__gte':request.POST['f_id'],'formula_name__contains':request.POST['f_name']}
         sql1 = dict_2_str_orm(conditions)
+        limit_batch=request.POST['batch']
+        limit_batch=limit_batch if limit_batch.isdigit() and limit_batch>0 else 10
+        print limit_batch
+        print sql1
         if request.POST['type_btn']=='delete': #删除
             id_list = request.POST.getlist('test','')#只能取得表单里面的数据
             print id_list
@@ -31,21 +35,22 @@ def formula_query(request):
                 Context={'fl1':formula_list,'message':'no such formula'}
                 return HttpResponse(t.render(Context))
 
-        elif request.POST['type_btn']=='query':#查询
-            print 'query'
+        elif request.POST['type_btn']=='insert':#新增
+            print 'insert'
             if sql1:
                 formula_list=ssq_formula.objects.filter()
                 Context={'f_list':formula_list,'message':'done'}
                 return HttpResponse(t.render(Context))
 
         else:
+            #test_str={'formula_name__contains':'g','formula_id__gte':2}
+            formula_list = ssq_formula.objects.filter(**sql1).order_by('-formula_id')[0:limit_batch]
+            print formula_list
+            Context = {'f_list': formula_list, 'message': 'else'}
+            return HttpResponse(t.render(Context))
 
-            if sql1:
-                formula_list = ssq_formula.objects.filter()
-                Context = {'f_list': formula_list, 'message': 'done'}
-                return HttpResponse(t.render(Context))
-    formula_list=ssq_formula.objects.filter(create_date__gt='2016-04-21')#为空则返回所有
-    Context={'fl1':formula_list,'message':'form fail'}
+    formula_lista = ssq_formula.objects.filter().order_by('-formula_id')[0:10]  # 取前面10个  减号表示降序
+    Context={'f_list':formula_lista,'message':'not post'}
     return HttpResponse(t.render(Context))
 
 
