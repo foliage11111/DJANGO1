@@ -22,6 +22,12 @@ $RECYCLE.BIN/
 dist
 build
 
+#pycharm
+migrations/
+.idea/
+logs/
+*.iml
+
 # Windows shortcuts
 *.lnk
 
