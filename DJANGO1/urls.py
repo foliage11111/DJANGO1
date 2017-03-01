@@ -21,7 +21,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from shuang.src.basic.basic_controller import index, normal, search_allrows, all_fact_ext, all_basic_ext
 from shuang.src.spider.spdier_controller import spider_search
-from shuang.src.formula.formula_controller import formula_query, define_formula
+from DJANGO1 import formula_urls
 
 from shuang.views import test
 
@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^shuang/normal$',normal), #基本查询页面
     url(r'^shuang/searchforbasic$',search_allrows), #查询所有的列 查询转跳
     url(r'^shuang/spider$',spider_search),#爬虫页面
-    url(r'^shuang/', include("formula_urls"))#
+    url(r'^shuang/', include('DJANGO1.formula_urls'))#
     ,
 ]
 
