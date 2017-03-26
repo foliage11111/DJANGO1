@@ -49,13 +49,20 @@ fumual='now.b1*2%10'
 formula_type='get_blue_tail_list'
 #todo 定义两个方法  #singl 需要传当前期数，batch 则需要另外写一个方法取一个列表来操作，输入选择性范围。
 
-ssq_num=2013001
 
 
-def caculate_result(num):
-    ###获得当前需要计算的ssq
-    now=TSsqShishibiao.objects.filter(num=num)[0]  #取指定的 ssq
-    ###获得需要循环的列表，如果很大怎么办？分单个和定义范围来做
+
+###因为我想做批量校验，减少数据库 io，所以希望输入的就是两个 ssq
+### todo 但是还有只做一半的，仅计算结果，这里要拆开
+def formula_test(num,formula):
+    now = TSsqShishibiao.objects.filter(num=num)[0]  # 取指定的 ssq
+    next_ssq = TSsqShishibiao.objects.filter(num=num + 1)[0]  # 获取需要验证的 ssq
+
+    #todo 调用后如何做后续处理
+
+
+def caculate_result(now,next_ssq):
+###计算结果值
     result_value=eval(fumual)
     print 'result_value=',result_value,'now balls:',now.list_all_balls()
     formula_value=[]
@@ -67,17 +74,10 @@ def caculate_result(num):
         elif 6<result_value<=9:
             formula_value = [result_value]
 
-
     print formula_value,formula_type
-    return formula_value
-
-a = caculate_result(ssq_num)
 
 ##以下为验证
 ###运行公式计算公式的结果
-#todo 当我按某一期来测试所有公式的时候，写法我觉得还可以改进下。
-def test_result(num,formula_value):
-    next_ssq=TSsqShishibiao.objects.filter(num=ssq_num+1)[0]
 
     ###获得需要验证的下一个 ssq 或 通过快速的上去了验证结果
     if formula_value :
@@ -92,7 +92,6 @@ def test_result(num,formula_value):
     else :
         return 'Null'
 
-print 'run',ssq_num,test_result(ssq_num,a)
 ###把公式结果和验证结果插入
 
 
