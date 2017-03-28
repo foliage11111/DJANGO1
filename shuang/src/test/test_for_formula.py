@@ -47,23 +47,32 @@ f3=eval(formula3)
 ###获得需要计算的公式内容
 fumual='now.b1*2%10'
 formula_type='get_blue_tail_list'
-#todo 定义两个方法  #singl 需要传当前期数，batch 则需要另外写一个方法取一个列表来操作，输入选择性范围。
 
 
 
+###因为我想做批量校验，减少数据库 io，所以希望输入的就是两个 ssq，但是在批量验证的时候，我可以通过批量输入公式，然后来进行校验。先循环 ssq，再循环 formula
+##如果输入的是ssq 范围和公式列表，则按一个一个 ssq 和公式列表来计算，todo num_range 要默认1，如何默认1？要校验 formula list 是否有效
 
-###因为我想做批量校验，减少数据库 io，所以希望输入的就是两个 ssq
-### todo 但是还有只做一半的，仅计算结果，这里要拆开
-def formula_test(num,formula):
-    now = TSsqShishibiao.objects.filter(num=num)[0]  # 取指定的 ssq
-    next_ssq = TSsqShishibiao.objects.filter(num=num + 1)[0]  # 获取需要验证的 ssq
+###需要新增一个提交 batch 的计算界面。。。。差不多就是计算请求了，然后通过这个来计算请求的计算结果。
+###不过这个可以迟一点做，先做计算完才能停的，即计算完就显示计算结果这样。还有好多内容，还要显示计算结果。。。。不过这个似乎那个 django 的前段也可以做。够快速了。
 
-    #todo 调用后如何做后续处理
+def formula_test(num_start,num_range,formula_list):#
+    if num_range :
+        num_list=[]#todo 根据 numstart 和 end 获得需要计算的，排好序的 ssq 序列，下面的取 ssq 要改，单纯的加一不靠谱。需要做好列表穿进去
+                    #todo 增加 formulalist 的取值，前端传进来的估计只有 formula 的 id 不一定能传值进来。
+        for i in num_list:
+            now = TSsqShishibiao.objects.filter(num= i)[0]  # 取指定的 ssq
+            next_ssq = TSsqShishibiao.objects.filter(num=i + 1)[0]  # 获取需要验证的 ssq
+            for j in  formula_list:
+                result=caculate_result(now,next_ssq,j)
+                print result
 
 
-def caculate_result(now,next_ssq):
+###以下是校验数据的结果是否正确，并不需要写入数据库？还是写以下好吧？按 batch 记录，然后记录 batch 和提交的计算结果？
+###todo 增加计算结果的 batch 字段，同时增加了写入数据库的内容
+def caculate_result(now,next_ssq,formula):
 ###计算结果值
-    result_value=eval(fumual)
+    result_value=eval(formula)
     print 'result_value=',result_value,'now balls:',now.list_all_balls()
     formula_value=[]
     if formula_type=='get_blue_tail_list': #取蓝球尾数的值
