@@ -39,7 +39,12 @@
         <tr><td></td><td><button  type="button" id="add_btn"  class="btn btn-default">新增</button></td></tr>
         <tr><td></td><td><button  type="button" id="del_btn"  class="btn btn-default">删除</button></td></tr>
         <input type="hidden" id="type_btn" name="type_btn">
+         <input type="hidden" id="test" name="test" value="2">
+    <input type="hidden" id="test" name="test" value="4">
+    <input type="hidden" id="test" name="test" value="6">
+    <input type="hidden" id="test" name="test" value="8">
     </form>
+
 
 <h2>公式列表</h2>
     <div class="table-responsive">
@@ -82,10 +87,22 @@
      {% endblock %}
     <script>
 
-    $(document).ready(function(){
+    $(function(){
         $("#qur_btn").click(function(){
             alert("查询被点击了。");
             $("#type_btn").val('query');
+            $("form").submit()
+         });
+
+         $("#add_btn").click(function(){
+            alert("新增被点击了。");
+            $("#type_btn").val('insert');
+            $("form").submit()
+         });
+
+         $("#del_btn").click(function(){
+            alert("删除被点击了。");
+            $("#type_btn").val('delete');
             $("form").submit()
          });
         });

@@ -18,6 +18,7 @@ class FoliageSsq(models.Model):
     sum1 = models.IntegerField(blank=True, null=True)
     sum2 = models.IntegerField(blank=True, null=True)
 
+    ###通过一个列表初始化数据
     def chushihua(self,num_list):
         if  num_list:
             self.r1=num_list[0]
@@ -28,10 +29,10 @@ class FoliageSsq(models.Model):
             self.r6=num_list[5]
             self.b1=num_list[6]
 
-    def list_all_balls(self):
+    def get_all_balls_byList(self):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
 
-    def list_red_balls(self):
+    def get_red_balls_by_list(self):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
@@ -76,6 +77,10 @@ class FoliageSsq_ext(models.Model):
         self.horizontal_span4=slist[3]
         self.horizontal_span5=slist[4]
 
+    def chushihua(self):
+        #todo 需要增加一个通过 ssqlist 初始化各个值的方法
+        return ''
+
     class Meta:
         managed = True
         db_table = 'foliagessq_ext'
@@ -96,6 +101,14 @@ class TSsqShishibiao(models.Model):
     sum1 = models.IntegerField(blank=True, null=True)
     sum2 = models.IntegerField(blank=True, null=True)
     time = models.DateField( blank=True, null=True)
+
+    def get_next(self):
+        '''返回下一个ssq 查询集'''
+        return TSsqShishibiao.objects.filter(num__gte=self.num).order_by('num')[1]
+
+    def get_privous(self):
+        '''返回上一个 ssq 查询集'''
+        return  TSsqShishibiao.objects.filter(num__lte=self.num).order_by('-num')[1]
 
     def chushihua(self,num_list):
 
