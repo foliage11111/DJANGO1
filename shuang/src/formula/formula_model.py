@@ -15,6 +15,7 @@ class ssq_formula(models.Model):
     create_date=models.DateField(null=True)
     update_date=models.DateField(null=True)
     formula_type=models.CharField(null=True,max_length=100)#针对蓝球还是红球的杀号还是选号
+    batch = models.CharField(null=True, max_length=200)  # 公式备注
     attribute1= models.CharField(null=True,max_length=100)
     attribute2= models.CharField(null=True,max_length=100)
     attribute3= models.CharField(null=True,max_length=100)
@@ -32,9 +33,10 @@ class ssq_formula_fact(models.Model):
     双色球公式结果，每一期的结果都要算
     """
     fact_id= models.IntegerField(primary_key=True,db_tablespace='USERS')
+    batch =models.CharField(null=True,max_length=100)#批次号
     now_periods= models.IntegerField(null=False) #基于计算的期数
     target_periods=models.IntegerField(null=False) #目标核对的期数
-    result =models.BooleanField(null=False) #结果是否正确
+    result =models.CharField(null=False,max_length=100) #结果是否正确
     formula_value=models.CharField(null=False,max_length=100)#结果是什么
     formula_type=models.CharField(null=True,max_length=100)#针对蓝球还是红球的杀号还是选号
     create_date=models.DateField(null=True)#创建时间
