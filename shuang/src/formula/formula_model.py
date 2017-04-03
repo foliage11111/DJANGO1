@@ -8,14 +8,20 @@ class ssq_formula(models.Model):
     '''
     双色球公式类
     '''
-    formula_id = models.IntegerField(primary_key=True,db_tablespace='USERS')
+    formula_id = models.AutoField(primary_key=True,db_tablespace='USERS')
+    """zhge kyi ?
+
+    sd
+    """
     formula_name = models.CharField(null=False,max_length=100)#公式自定义名称
+
     formula_express= models.CharField(null=False,max_length=100)#表达式
     formula_note= models.CharField(null=False,max_length=200)#公式备注
-    create_date=models.DateField(null=True)
-    update_date=models.DateField(null=True)
+    create_date=models.DateField(null=True,)
+    update_date=models.DateField(null=True,auto_now = True)
     formula_type=models.CharField(null=True,max_length=100)#针对蓝球还是红球的杀号还是选号
     batch = models.CharField(null=True, max_length=200)  # 公式备注
+    status= models.CharField(null=True,max_length=100)# 是否有效
     attribute1= models.CharField(null=True,max_length=100)
     attribute2= models.CharField(null=True,max_length=100)
     attribute3= models.CharField(null=True,max_length=100)
@@ -32,16 +38,21 @@ class ssq_formula_fact(models.Model):
     """
     双色球公式结果，每一期的结果都要算
     """
-    fact_id= models.IntegerField(primary_key=True,db_tablespace='USERS')
+    fact_id= models.AutoField(primary_key=True,db_tablespace='USERS')
     batch =models.CharField(null=True,max_length=100)#批次号
-    now_periods= models.IntegerField(null=False) #基于计算的期数
-    target_periods=models.IntegerField(null=False) #目标核对的期数
+    now_periods= models.IntegerField(null=True) #基于计算的期数
+    target_periods=models.IntegerField(null=True) #目标核对的期数
     result =models.CharField(null=False,max_length=100) #结果是否正确
     formula_value=models.CharField(null=False,max_length=100)#结果是什么
     formula_type=models.CharField(null=True,max_length=100)#针对蓝球还是红球的杀号还是选号
     create_date=models.DateField(null=True)#创建时间
-    attribute1 =models.CharField(null=True,max_length=100)#源的列表组合
-    attribute2 =models.CharField(null=True,max_length=100)#目标的列组合
+    update_date = models.DateField(null=True, auto_now=True)
+    '''如果公式对了，会涉及多少个可能的组合'''
+    right_nums=models.IntegerField(null=True)
+    target_ssq=models.CharField(null=True,max_length=100)#源的列表组合
+    source_ssq=models.CharField(null=True,max_length=100)#目标的列组合
+    attribute1 =models.CharField(null=True,max_length=100)
+    attribute2 =models.CharField(null=True,max_length=100)
     attribute3 =models.CharField(null=True,max_length=100)
     attribute4 =models.CharField(null=True,max_length=100)
     attribute5 =models.CharField(null=True,max_length=100)
@@ -59,11 +70,12 @@ class formula_fact_per(models.Model):
         3、看看哪些公式的波动是否有规律
 
     """
-    per_id =  models.IntegerField(primary_key=True,db_tablespace='USERS')
+    per_id =  models.AutoField(primary_key=True,db_tablespace='USERS')
     periods = models.IntegerField(null=False)
     fact_id = models.IntegerField(null=False)
     result = models.BooleanField(null=False)
     create_date=models.DateField(null=True)
+    update_date = models.DateField(null=True, auto_now=True)
     formula_id = models.IntegerField(null=False)
     formula_in5 = models.FloatField(null=False)
     formula_in10 = models.FloatField(null=False)

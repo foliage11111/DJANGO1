@@ -6,6 +6,7 @@ import re
 import datetime
 import os
 import django
+import time
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DJANGO1.settings")
 
 django.setup()
@@ -57,15 +58,25 @@ from shuang.src.formula.formula_model import ssq_formula
 # print 'order' in 'order by'
 # print s.startswith(' order')
 
-ssq_list = TSsqShishibiao.objects.all()
-print ssq_list
+# ssq_list = TSsqShishibiao.objects.all()
+# print ssq_list
+#
+# for i in ssq_list:
+#     print i
 
-for i in ssq_list:
-    print i
-
-
+print int(time.time())
+print datetime.datetime.today()
+print datetime.datetime.now().strftime("%Y-%m-%d %H:%I:%S")
 # formulas_list=[]
 # formulas_list.append(ssq_formula.objects.filter(formula_id=2013001)[0])
 # formulas_list.append(ssq_formula.objects.filter(formula_id=2013002)[0])
 
 # print formulas_list
+q=TSsqShishibiao.objects.filter(num__gte=2017020).order_by('num')[0:3]
+print q
+print len(q)
+print q[1].num
+print q[1].get_next()
+q2=TSsqShishibiao.objects.filter(num__gte=q[1].num).order_by('num')[0:3]
+print len(q2)
+print q2[0].get_all_balls_byList()

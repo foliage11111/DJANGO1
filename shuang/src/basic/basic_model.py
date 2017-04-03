@@ -104,11 +104,19 @@ class TSsqShishibiao(models.Model):
 
     def get_next(self):
         '''返回下一个ssq 查询集'''
-        return TSsqShishibiao.objects.filter(num__gte=self.num).order_by('num')[1]
+        q=TSsqShishibiao.objects.filter(num__gte=self.num).order_by('num')[0:3]
+        if len(q)>1:
+            return q[1]
+        else:
+            return None
 
     def get_privous(self):
         '''返回上一个 ssq 查询集'''
-        return  TSsqShishibiao.objects.filter(num__lte=self.num).order_by('-num')[1]
+        q = TSsqShishibiao.objects.filter(num__lte=self.num).order_by('num')[0:3]
+        if len(q)>1:
+            return q[1]
+        else:
+            return None
 
     def chushihua(self,num_list):
 
@@ -136,10 +144,10 @@ class TSsqShishibiao(models.Model):
 
 
 
-    def list_all_balls(self):
+    def get_all_balls_byList(self):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
 
-    def list_red_balls(self):
+    def get_list_red_balls_byList(self):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
