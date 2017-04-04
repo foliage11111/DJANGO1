@@ -1,8 +1,10 @@
 #coding: utf8
 from django.contrib import admin
-from shuang.src.formula.formula_controller import make_formula_cal
+from shuang.src.formula.formula_controller import formula_test
 from shuang.src.formula.formula_model import ssq_formula,ssq_formula_fact
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 __author__ = 'zr'
 
@@ -10,7 +12,7 @@ __author__ = 'zr'
 @admin.register(ssq_formula)
 class re_formula (admin.ModelAdmin):
 
-    actions = [make_formula_cal]#只能注册一次，每个方法就用这个 list 写进去吗？
+    actions = ['make_formula_cal']#最开始的时候我不是写字符串，而是通过import 了之后写进去的。方法写在里面后就变了
 
     list_display=('formula_id','formula_name','formula_type',) #显示列表
 
@@ -31,6 +33,26 @@ class re_formula (admin.ModelAdmin):
         ]
 
     )
+
+    def make_formula_cal(slef, request, queryset):
+        '''按输入的 formula_list计算所有的结果,如果开始位置找不到则计算所有结果'''
+
+        #print '由于要指定开始的位置，所以不能直接把输入的 queryset 直接传进去，使用了[obj]'
+        message='返回信息    '
+        for obj in queryset:
+            message=message+'公式'+str(obj.formula_name)+'：'
+            batch='初始化'
+            if obj.ssq_formula_fact_set.all().exists():
+                max_ssq=obj.ssq_formula_fact_set.latest('target_periods')
+                batch=formula_test(max_ssq.target_periods,0,[obj]) ##从指定的某个地方开始计算
+                message =message+'从'+str(max_ssq.target_periods) +'期开始计算，'+' batch='+batch+'；'
+            else:
+                batch=formula_test('', -1, [obj])
+                message=message+ '该公式不存在任何计算结果，重新开始计算的batch=' +batch+'；'
+
+
+        slef.message_user(request, message)##最后输出一个信息
+    make_formula_cal.short_description = '计算公式的结果'#给下拉操作定义个中文名称
 
 @admin.register(ssq_formula_fact)
 class re_formula_fact (admin.ModelAdmin):

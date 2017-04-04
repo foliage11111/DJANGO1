@@ -5,7 +5,7 @@ from dataBase.gedata import dict_2_str_orm
 from shuang.src.formula.formula_model import ssq_formula
 from shuang.src.formula.formula_model import ssq_formula_fact
 from shuang.src.basic.basic_model import TSsqShishibiao
-
+from django.contrib import admin
 import time
 import datetime
 __author__ = 'zr'
@@ -134,7 +134,7 @@ def formula_test(num_start,num_range,formulas_list):
     '''
 
 #根据 range 获取 ssq 列表
-    if not num_start :
+    if not num_start and num_range != -1 :
        return 'error'
 
     ssq_list = []
@@ -143,7 +143,7 @@ def formula_test(num_start,num_range,formulas_list):
     elif num_range is None :
         ssq_list = TSsqShishibiao.objects.filter(num__exact=num_start)# 为空取指定的 ssq
     elif num_start>0 and num_range==0:
-        ssq_list = TSsqShishibiao.objects.filter(num__gte=num_start)
+        ssq_list = TSsqShishibiao.objects.filter(num__gte=num_start) #计算某一期后的所有值
     elif num_range==-1:
         ssq_list = TSsqShishibiao.objects.all()  # 取所有的 ssq
 
@@ -162,40 +162,30 @@ def formula_test(num_start,num_range,formulas_list):
     batch=int(time.time())
 #开始循环计算最终的校验结果
     print '需要计算的所有 ssq：',ssq_list
+    if ssq_list:
+        for now_ssq in ssq_list:
+            for now_formula in  formulas_list:
+                next_ssq=now_ssq.get_next()
+                if next_ssq:
+                    result,re_value=caculate_result(now_ssq,next_ssq,now_formula)#计算结果
 
-    for now_ssq in ssq_list:
-        for now_formula in  formulas_list:
-            next_ssq=now_ssq.get_next()
-            if next_ssq:
-                result,re_value=caculate_result(now_ssq,next_ssq,now_formula)#计算结果
-
-                fact=ssq_formula_fact()
-                fact.batch='%d' %batch
-                fact.now_periods=now_ssq.num
-                fact.target_periods=next_ssq.num
-                fact.result=result
-                fact.formula = now_formula
-                fact.formula_value=','.join(map(str,re_value))#caculate_result的返回值里面还要增加返回计算的数据
-                fact.formula_type=now_formula.formula_type
-                fact.create_date=datetime.datetime.today()
-                fact.source_ssq=','.join(map(str,now_ssq.get_all_balls_byList()))
-                fact.target_ssq=','.join(map(str,next_ssq.get_all_balls_byList()))
-                fact.save()
-
+                    fact=ssq_formula_fact()
+                    fact.batch='%d' %batch
+                    fact.now_periods=now_ssq.num
+                    fact.target_periods=next_ssq.num
+                    fact.result=result
+                    fact.formula = now_formula
+                    fact.formula_value=','.join(map(str,re_value))#caculate_result的返回值里面还要增加返回计算的数据
+                    fact.formula_type=now_formula.formula_type
+                    fact.create_date=datetime.datetime.today()
+                    fact.source_ssq=','.join(map(str,now_ssq.get_all_balls_byList()))
+                    fact.target_ssq=','.join(map(str,next_ssq.get_all_balls_byList()))
+                    fact.save()
+                else:
+                    return '没有ssq，即已经是最新的了'
+    else:
+        return '没有ssq，即已经是最新的了'
             # print p.num,p.get_next().num,j.formula_express
-    return batch
+    return str(batch)
 
-def make_formula_cal(modeladmin, request, queryset):
-    '''按输入的 formula_list计算所有的结果,如果开始位置找不到则计算所有结果'''
-    make_formula_cal.short_description='计算公式的结果'
-    print '由于要指定开始的位置，所以不能直接把输入的 queryset 直接传进去，使用了[obj]'
-    for obj in queryset:
-        print obj
-        print obj.formula_name
-        # for i in  obj.ssq_formula_fact_set.all():
-        #     print i
-        if obj.ssq_formula_fact_set.all().exists():
-            print obj.ssq_formula_fact_set.latest('now_periods').batch
-            formula_test(obj.ssq_formula_fact_set.latest('target_periods').target_periods,0,[obj])
-        else:
-            print '该公式不存在任何计算结果，重新开始计算' #todo
+
