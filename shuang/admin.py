@@ -1,31 +1,16 @@
 #coding: utf8
 from django.contrib import admin
+from shuang.src.formula.formula_model import ssq_formula,ssq_formula_fact
+from shuang.src.formula.forumla_admin_register import re_formula,re_formula_fact
 
 # Register your models here.
 # Register your models here.
 
-from shuang.src.formula.formula_model import formula_fact_per,ssq_formula,ssq_formula_fact
+from shuang.src.formula.formula_model import formula_fact_per
 
-class formula (admin.ModelAdmin):
-    list_display=('formula_id','formula_name','formula_type',) #显示列表
 
-    search_fields = ('formula_id','formula_name','formula_type',)  #搜索列表
+admin.site.register([formula_fact_per])
 
-    list_editable=('formula_name','formula_type',) #就地编辑
-
-    fieldsets=(  #编辑列表
-        ['基本信息',
-         {'fields':('formula_id','formula_name','formula_type')
-
-          }
-        ],
-        ['详细信息',
-         {'classes': ('collapse',), # CSS
-          'fields':('formula_express','formula_note')
-          }
-        ]
-
-    )
-
-admin.site.register(ssq_formula,formula)
-admin.site.register([formula_fact_per,ssq_formula_fact])
+# admin.site.register(ssq_formula_fact,re_formula_fact)
+#
+# admin.site.register(ssq_formula,re_formula)

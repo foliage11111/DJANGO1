@@ -23,8 +23,9 @@ def spider_search(request):
             batch,return_code[0]=get_web(num) #按个抓取双色球，并返回列表和查询网页状态
             for i in batch:
                 ssq_list= TSsqShishibiao.objects.filter(num=i[0])#确实事实表里面是否已近各有了这个期数
-                print 'if filter goes wrong',ssq_list,'0'
-                if not ssq_list : #如果是空的说明不存在,我之前还判断里面的[0]，其实一点都没有，所以报错了
+
+                if not ssq_list.exists() : #如果是空的说明不存在,我之前还判断里面的[0]，其实一点都没有，所以报错了
+                    print '有值才插入', ssq_list, '0'
                     ssq_tmp=TSsqShishibiao()
                     ssq_tmp.chushihua(i) #列表初始化事实表，并关联总表外键
                     ssq_tmp.save()
@@ -38,6 +39,6 @@ def spider_search(request):
     except Exception:
         return_code[0]='form fail'
 
-    t = loader.get_template('spider_search.html')
+    t = loader.get_template('basic/spider_search.html')
     Context={'ssq1':return_list,'message':return_code[0],'batch':num,'ssq_len':len(return_list)}
     return HttpResponse(t.render(Context))

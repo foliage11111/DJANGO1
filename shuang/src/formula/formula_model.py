@@ -1,6 +1,7 @@
 #coding: utf8
 from django.db import models
 
+
 __author__ = 'zr'
 
 
@@ -34,6 +35,9 @@ class ssq_formula(models.Model):
         db_table = 'ssq_formula'
 
 
+
+
+
 class ssq_formula_fact(models.Model):
     """
     双色球公式结果，每一期的结果都要算
@@ -52,7 +56,7 @@ class ssq_formula_fact(models.Model):
     right_nums=models.IntegerField(null=True)
     target_ssq=models.CharField(null=True,max_length=100)#源的列表组合
     source_ssq=models.CharField(null=True,max_length=100)#目标的列组合
-    attribute1 =models.CharField(null=True,max_length=100)
+    attribute1 =models.CharField(null=True,max_length=100)#公式的名称
     attribute2 =models.CharField(null=True,max_length=100)
     attribute3 =models.CharField(null=True,max_length=100)
     attribute4 =models.CharField(null=True,max_length=100)

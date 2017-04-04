@@ -65,6 +65,7 @@ formula_type='get_blue_tail_list'
 def caculate_result(now,next_ssq,formula):
     '''根据输入的第一个 ssq 和目标 ssq 以及公式 object 验证是否正确，并写入 batch'''
 ###计算结果值
+    print '开始计算公式', formula.formula_express,formula.formula_name
     result_value=eval(formula.formula_express)
     print 'result_value=',result_value,'now balls:',now.get_all_balls_byList()
     formula_value=[result_value]
@@ -135,6 +136,7 @@ def formula_test(num_start,num_range,formula_list):
     print formulas_list
     for now_ssq in ssq_list:
         for now_formula in  formulas_list:
+
             next_ssq=now_ssq.get_next()
             if next_ssq:
                 result,re_value=caculate_result(now_ssq,next_ssq,now_formula)#计算结果
@@ -143,7 +145,7 @@ def formula_test(num_start,num_range,formula_list):
                 fact.batch='%d' %batch
                 fact.now_periods=now_ssq.num
                 fact.target_periods=next_ssq.num
-                fact.formula=now_formula.formula_id
+                fact.formula=now_formula
                 fact.result=result
                 fact.formula_value=','.join(map(str,re_value))#caculate_result的返回值里面还要增加返回计算的数据
                 fact.formula_type=now_formula.formula_type
