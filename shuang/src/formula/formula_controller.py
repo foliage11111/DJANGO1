@@ -166,6 +166,7 @@ def formula_test(num_start,num_range,formula_list):
                 fact.now_periods=now_ssq.num
                 fact.target_periods=next_ssq.num
                 fact.result=result
+                fact.formula = now_formula.formula_id
                 fact.formula_value=','.join(map(str,re_value))#caculate_result的返回值里面还要增加返回计算的数据
                 fact.formula_type=now_formula.formula_type
                 fact.create_date=datetime.datetime.today()

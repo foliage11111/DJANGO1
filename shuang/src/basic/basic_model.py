@@ -43,7 +43,7 @@ class FoliageSsq(models.Model):
 class FoliageSsq_ext(models.Model):
     ##总表的扩展表
     id=models.AutoField(primary_key=True,db_tablespace='USERS')
-    num=models.IntegerField(blank=True, null=True)#外键，关联事实表的foliage_ssq的num
+    num=models.ForeignKey(FoliageSsq,null=True)#外键，关联事实表的foliage_ssq的num
     horizontal_span1=models.IntegerField(blank=True, null=True)
     horizontal_span2=models.IntegerField(blank=True, null=True)
     horizontal_span3=models.IntegerField(blank=True, null=True)
@@ -157,7 +157,7 @@ class TSsqShishibiao(models.Model):
 
 class TSsqShishibiao_ext(models.Model):
     id=models.AutoField(primary_key=True,db_tablespace='USERS')
-    num=models.IntegerField(blank=True, null=True)#外键，关联事实表的t_ssq_shishibiao的num
+    num=models.ForeignKey(TSsqShishibiao,null=True)#外键，关联事实表的t_ssq_shishibiao的num
     horizontal_span1=models.IntegerField(blank=True, null=True)
     horizontal_span2=models.IntegerField(blank=True, null=True)
     horizontal_span3=models.IntegerField(blank=True, null=True)

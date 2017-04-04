@@ -143,6 +143,7 @@ def formula_test(num_start,num_range,formula_list):
                 fact.batch='%d' %batch
                 fact.now_periods=now_ssq.num
                 fact.target_periods=next_ssq.num
+                fact.formula=now_formula.formula_id
                 fact.result=result
                 fact.formula_value=','.join(map(str,re_value))#caculate_result的返回值里面还要增加返回计算的数据
                 fact.formula_type=now_formula.formula_type
