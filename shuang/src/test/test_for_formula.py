@@ -162,3 +162,26 @@ formula_test(2017016,10,'')
 ##todo 完善所有公式，然后计算
 ##todo 数据写进 controller 里面去
 ##
+
+def blue_format(b):
+    '''格式化蓝球，输入一个数字，按16取余数'''
+    if  b>16:
+        return b%16
+    else:
+        return b
+
+
+def red_format(b):
+    '''格式化红球，输入一个数字，按33取余数'''
+    if  b>33:
+        return b%33
+    else:
+        return b
+
+def blue_tail(b):
+    '''取单个蓝球的尾数'''
+    return b%10
+
+def red_tail(b):
+    '''取单个红球的尾数'''
+    return b%10
