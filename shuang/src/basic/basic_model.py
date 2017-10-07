@@ -198,6 +198,12 @@ class TSsqShishibiao_ext(models.Model):
         self.horizontal_span4=slist[3]
         self.horizontal_span5=slist[4]
 
+    def get_all_balls_byList(self):
+        return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
+
+    def get_list_red_balls_byList(self):
+        return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
+
     class Meta:
         managed = True
         db_table = 'tssqshishibiao_ext'
