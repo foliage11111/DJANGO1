@@ -10,7 +10,7 @@ def cal_shishibiao_ext(tss_ball):
     #事实表根据本次球算出扩展属性,返回shishibiao_ext类型对象
     ball_ext=TSsqShishibiao_ext()
     ball_ext.id=tss_ball.num
-    ball_ext.num=tss_ball.num
+    ball_ext.num=tss_ball  #启用外键后直接关联对象
     ball_ext.red_sum=tss_ball.sum1
     ball_ext.prime_reds=cal_zhishu(tss_ball)#质数
     ball_ext.odd_reds=cal_odd_reds(tss_ball)#偶数
@@ -46,7 +46,7 @@ def cal_horizontal_span(ball):
     :param ball:
     :return:
     '''
-    ssq=ball.list_red_balls()
+    ssq=ball.get_list_red_balls_byList()
     return [ssq[1]-ssq[0],ssq[2]-ssq[1],ssq[3]-ssq[2],ssq[4]-ssq[3],ssq[5]-ssq[4]]
 
 def cal_zhishu(ball):
@@ -58,7 +58,7 @@ def cal_zhishu(ball):
     ssq_property=TSsqShishibiao_ext()
     ssq_property.prime_reds=0
     zhishu=[2,3,5,7,11,13,17,19,23,29,31]
-    ssq_red=ball.list_red_balls()
+    ssq_red=ball.get_list_red_balls_byList()
     for i in ssq_red:
         if i in zhishu:
             ssq_property.prime_reds+=1
@@ -72,7 +72,7 @@ def cal_odd_reds(ball):
     '''
     ssq_property=TSsqShishibiao_ext()
     ssq_property.odd_reds=0
-    ssq_red=ball.list_red_balls()
+    ssq_red=ball.get_list_red_balls_byList()
     for i in ssq_red:
         if (int(i) % 2) == 0:
             # print i
@@ -96,7 +96,7 @@ def cal_weihe(ball):
     :param 输入Foliagessq或者Tssqshishibiao的对象:
     :return:红球尾和，不包含蓝球
     '''
-    ssq_red=ball.list_red_balls()
+    ssq_red=ball.get_list_red_balls_byList()
     ssq_property=TSsqShishibiao_ext()
     ssq_property.red_weihe=0
     for i in ssq_red:
