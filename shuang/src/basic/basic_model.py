@@ -30,9 +30,17 @@ class FoliageSsq(models.Model):
             self.b1=num_list[6]
 
     def get_all_balls_byList(self):
+        '''
+                所有红球加蓝球
+                :return: [r1,r2,r3,r4,r5,r6]
+                '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
 
     def get_red_balls_by_list(self):
+        '''
+                所有红球
+                :return: [r1,r2,r3,r4,r5,r6]
+                '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
@@ -119,7 +127,11 @@ class TSsqShishibiao(models.Model):
             return None
 
     def chushihua(self,num_list):
-
+        '''
+        初始化这个事实发生的期数，并关联总表
+        :param num_list: 输入[num,r1,r2,r3,r4,r5,r6,b1]
+        :return: 对象
+        '''
         if  num_list:
             self.num=num_list[0]
             self.r1=num_list[1]
@@ -145,9 +157,17 @@ class TSsqShishibiao(models.Model):
 
 
     def get_all_balls_byList(self):
+        '''
+                所有红球加蓝球
+                :return: [r1,r2,r3,r4,r5,r6]
+                '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
 
     def get_list_red_balls_byList(self):
+        '''
+                所有红球
+                :return: [r1,r2,r3,r4,r5,r6]
+                '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
@@ -199,9 +219,17 @@ class TSsqShishibiao_ext(models.Model):
         self.horizontal_span5=slist[4]
 
     def get_all_balls_byList(self):
+        '''
+        红球加蓝球
+        :return: [r1,r2,r3,r4,r5,r6,b1]
+        '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6,self.b1]
 
     def get_list_red_balls_byList(self):
+        '''
+        所有红球
+        :return: [r1,r2,r3,r4,r5,r6]
+        '''
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
