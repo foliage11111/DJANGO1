@@ -178,10 +178,30 @@ def red_format(b):
     else:
         return b
 
+
 def blue_tail(b):
     '''取单个蓝球的尾数'''
     return b%10
 
+
 def red_tail(b):
     '''取单个红球的尾数'''
     return b%10
+
+
+def ji_lan(b):
+    '''当期开奖的兰号，如为偶数时，乘上2，再加02，计算的结果在下一期有可能不出'''
+    if b%2==0:
+        return blue_format(b*2+2)
+    else:
+        return blue_format(b*5+2)
+
+
+def ou_lan(b):
+    '''当期开奖的兰号，如为奇数时，乘上5，再加+02，计算的结果在下一期有可能不出'''
+    if b%2!=0:
+        return blue_format(b * 5 + 2)
+    else:
+        return ''
+
+#todo 这个返回值和 controller 里面调整一个东西

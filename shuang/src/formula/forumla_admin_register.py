@@ -2,15 +2,16 @@
 from django.contrib import admin
 from shuang.src.formula.formula_controller import formula_test
 from shuang.src.formula.formula_model import ssq_formula,ssq_formula_fact
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+from shuang.src.basic.basic_model import  TSsqShishibiao,TSsqShishibiao_ext
+# import sys
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 __author__ = 'zr'
 
 
 @admin.register(ssq_formula)
-class re_formula (admin.ModelAdmin):
+class re_formula (admin.ModelAdmin):  ##公式的 admin
 
     actions = ['make_formula_cal']#最开始的时候我不是写字符串，而是通过import 了之后写进去的。方法写在里面后就变了
 
@@ -55,7 +56,7 @@ class re_formula (admin.ModelAdmin):
     make_formula_cal.short_description = '计算公式的结果'#给下拉操作定义个中文名称
 
 @admin.register(ssq_formula_fact)
-class re_formula_fact (admin.ModelAdmin):
+class re_formula_fact (admin.ModelAdmin):##公式的计算结果展示
 
     list_display=('batch','now_periods','target_periods','result','formula_value','formula_type','right_nums','formula','attribute1') #显示列表
 
@@ -76,4 +77,3 @@ class re_formula_fact (admin.ModelAdmin):
         ]
 
     )
-

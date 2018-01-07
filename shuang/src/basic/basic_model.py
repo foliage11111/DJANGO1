@@ -7,16 +7,19 @@ __author__ = 'zr'
 
 class FoliageSsq(models.Model):
     ####总表
-    num = models.IntegerField(primary_key=True)
-    r1 = models.IntegerField(blank=True, null=True)
-    r2 = models.IntegerField(blank=True, null=True)
-    r3 = models.IntegerField(blank=True, null=True)
-    r4 = models.IntegerField(blank=True, null=True)
-    r5 = models.IntegerField(blank=True, null=True)
-    r6 = models.IntegerField(blank=True, null=True)
-    b1 = models.IntegerField(blank=True, null=True)
-    sum1 = models.IntegerField(blank=True, null=True)
-    sum2 = models.IntegerField(blank=True, null=True)
+    class Meta:
+        verbose_name='基础组合'
+        verbose_name_plural='基础组合们'
+    num = models.IntegerField(primary_key=True,verbose_name='序号')
+    r1 = models.IntegerField(blank=True, null=True,verbose_name='红1')
+    r2 = models.IntegerField(blank=True, null=True,verbose_name='红2')
+    r3 = models.IntegerField(blank=True, null=True,verbose_name='红3')
+    r4 = models.IntegerField(blank=True, null=True,verbose_name='红4')
+    r5 = models.IntegerField(blank=True, null=True,verbose_name='红5')
+    r6 = models.IntegerField(blank=True, null=True,verbose_name='红6')
+    b1 = models.IntegerField(blank=True, null=True,verbose_name='蓝球')
+    sum1 = models.IntegerField(blank=True, null=True,verbose_name='红球和')
+    sum2 = models.IntegerField(blank=True, null=True,verbose_name='总和')
 
     ###通过一个列表初始化数据
     def chushihua(self,num_list):
@@ -50,6 +53,9 @@ class FoliageSsq(models.Model):
 
 class FoliageSsq_ext(models.Model):
     ##总表的扩展表
+    class Meta:
+        verbose_name = '基础扩展'
+        verbose_name_plural = '基础扩展们'
     id=models.AutoField(primary_key=True,db_tablespace='USERS')
     num=models.ForeignKey(FoliageSsq,null=True)#外键，关联事实表的foliage_ssq的num
     horizontal_span1=models.IntegerField(blank=True, null=True)
@@ -95,20 +101,20 @@ class FoliageSsq_ext(models.Model):
 
 
 class TSsqShishibiao(models.Model):
-    ##事实表的扩展表
-    num = models.IntegerField(primary_key=True,db_tablespace='USERS')
-    waijian = models.IntegerField(blank=True, null=True) ##关联总表的num
-    taoshu = models.IntegerField(blank=True, null=True)
-    r1 = models.IntegerField(blank=True, null=True)
-    r2 = models.IntegerField(blank=True, null=True)
-    r3 = models.IntegerField(blank=True, null=True)
-    r4 = models.IntegerField(blank=True, null=True)
-    r5 = models.IntegerField(blank=True, null=True)
-    r6 = models.IntegerField(blank=True, null=True)
-    b1 = models.IntegerField(blank=True, null=True)
-    sum1 = models.IntegerField(blank=True, null=True)
-    sum2 = models.IntegerField(blank=True, null=True)
-    time = models.DateField( blank=True, null=True)
+
+    num = models.IntegerField(primary_key=True,db_tablespace='USERS',verbose_name='期数')
+    waijian = models.IntegerField(blank=True, null=True,verbose_name='总表') ##关联总表的num
+    taoshu = models.IntegerField(blank=True, null=True,verbose_name='套数（停用）')
+    r1 = models.IntegerField(blank=True, null=True,verbose_name='红1')
+    r2 = models.IntegerField(blank=True, null=True,verbose_name='红2')
+    r3 = models.IntegerField(blank=True, null=True,verbose_name='红3')
+    r4 = models.IntegerField(blank=True, null=True,verbose_name='红4')
+    r5 = models.IntegerField(blank=True, null=True,verbose_name='红5')
+    r6 = models.IntegerField(blank=True, null=True,verbose_name='红6')
+    b1 = models.IntegerField(blank=True, null=True,verbose_name='蓝球')
+    sum1 = models.IntegerField(blank=True, null=True,verbose_name='红和')
+    sum2 = models.IntegerField(blank=True, null=True,verbose_name='总和')
+    time = models.DateField( blank=True, null=True,verbose_name='创建时间')
 
     def get_next(self):
         '''返回下一个ssq 查询集'''
@@ -155,7 +161,6 @@ class TSsqShishibiao(models.Model):
           #  print self.num,self.list_all_balls()
 
 
-
     def get_all_balls_byList(self):
         '''
                 所有红球加蓝球
@@ -171,11 +176,17 @@ class TSsqShishibiao(models.Model):
         return [self.r1,self.r2,self.r3,self.r4,self.r5,self.r6]
 
     class Meta:
+        verbose_name = "历史数据"
+        verbose_name_plural = "历史数据"
         managed = True
         db_table = 't_ssq_shishibiao'
 
 
+
 class TSsqShishibiao_ext(models.Model):
+    class Meta:
+        verbose_name = '历史扩展'
+        verbose_name_plural = '历史扩展'
     id=models.AutoField(primary_key=True,db_tablespace='USERS')
     num=models.ForeignKey(TSsqShishibiao,null=True)#外键，关联事实表的t_ssq_shishibiao的num
     horizontal_span1=models.IntegerField(blank=True, null=True)

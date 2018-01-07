@@ -8,6 +8,7 @@ import datetime
 
 import os
 import django
+from django.db.models import Max
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "DJANGO1.settings")
 django.setup()
 from shuang.src.basic.basic_model import TSsqShishibiao
@@ -116,6 +117,7 @@ print blue_format(27)
 
 def get_web_from_data500(num):
     '''
+    已停用，考虑不周全，已改用get_web_datachart_ajax
     [[T返回期数,红球1,红球2,红球3,红球4,红球5,红球6,蓝球],]
     :param num:
     :return:[[T返回期数,红球1,红球2,红球3,红球4,红球5,红球6,蓝球],]
@@ -222,18 +224,21 @@ def get_web_datachart_ajax(num):
     '''
     #url3 = 'http://www.woying.com/kaijiang/ssqls/'+num+'.html'
 
-    first_ball = TSsqShishibiao.objects.last()
-    print 'first_ball.num',first_ball.num,'first_ball.get_all_balls_byList()',first_ball.get_all_balls_byList()
+    #first_ball = TSsqShishibiao.objects.last()
+    #print 'first_ball.num',first_ball.num,'first_ball.get_all_balls_byList()',first_ball.get_all_balls_byList()
+    #其实用这个 last 的方法也可以，他是根据主键后排序的来取值的。其实也很快。
+    first_ball =int(TSsqShishibiao.objects.all().aggregate(Max('num')).get('num__max'))
+
     last_ball=get_web_datachart_last()
     if first_ball and last_ball:#正常情况下应该都是从第一个 url3开始
-        print 'first_ball',first_ball.num
+        print 'first_ball',first_ball
         print 'last_ball',last_ball[0]
-        if first_ball.num+int(num)>=int(last_ball[0]): #如果自己的最后一个加上批次大于了网页的最大值，则用from 我的第一个 to 网页的最后一个
+        if first_ball+int(num)>=int(last_ball[0]): #如果自己的最后一个加上批次大于了网页的最大值，则用from 我的第一个 to 网页的最后一个
             url3='http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + \
-                 str(first_ball.num)[2:] + '&to=' + str(last_ball[0])[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
+                 str(first_ball)[2:] + '&to=' + str(last_ball[0])[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
         else:##如果最后一个加上批次小于网页的最大值,则使用 from 我的最后一个 to 我的最后一个加上+batch
             url3 = 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + \
-            str(first_ball.num)[2:] + '&to=' + str(int(first_ball.num+ int(100)))[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
+            str(first_ball)[2:] + '&to=' + str(int(first_ball+ int(100)))[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
     else: #任意一个为空，则默认拿100个
         url3 = 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=' + '100'
     print url3
@@ -291,10 +296,14 @@ def get_web_datachart_ajax(num):
 #print get_web_datachart_ajax('100')
 def test():
     last = TSsqShishibiao.objects.last()
+    max =TSsqShishibiao.objects.all().aggregate(Max('num'))
+    print 'num__max',max.get('num__max')
     print last.get_all_balls_byList()
     print last.num
     print 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + str(last.num)[2:] + '&to=' + str(last.num + int(100))[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
     return ''
 
 #test()
-get_web_datachart_ajax(100)
+#get_web_datachart_ajax(100)
+
+print 32%16
