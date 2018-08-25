@@ -83,22 +83,26 @@ def get_web_datachart_last():
     req1.add_header('User-Agent', header1['User-Agent'])  ##需要区别上面加header的方法，这里需要指定header里面某个关键字，然后增加字符串内容
     # req1.set_proxy('27.38.152.195:9797','http') #设置代理
     response = urllib2.urlopen(req1)
+    print "get response"
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
         print response.info()
         print req1.headers
     else:
         print 'web is down！'
         return ['web is down']
+    print "relaseing response"
     cont=response.read()
     #print 'cont    '+cont
-    ssq_list=re.subn(r'(\r+|\n+)+\s+','',cont) ##去除重复的内容
-    # print ssq_list
-    table1=re.findall(r'tbody.*?tbody',ssq_list[0]) ##找出主table
+    ssq_main=re.subn(r'(\r+|\n+)+\s+','',cont) ##去除重复的内容
+    print "reticting trash"
+    table1=re.findall(r'tbody.*?tbody',ssq_main[0]) ##找出主table
+    print "get main table"
+    print table1
     ssq_list=re.findall(r'<td align="center">.*?</tr>',table1[0]) ##找出每一期的记录分段
     print ssq_list
-    test2 = re.findall(r'<td align="center">(.*?)</td>',ssq_list[-1])#期数
+    ssq_num = re.findall(r'<td align="center">(.*?)</td>',ssq_list[-1])#期数
 
-    ssq=['20'+test2[0].strip()]#期数里面不知道为啥就是有空格，去不掉，肯定是我对正则的理解不够
+    ssq=['20'+ssq_num[0].strip()]#期数里面不知道为啥就是有空格，去不掉，肯定是我对正则的理解不够
     ssq = map(int, ssq)  # 字符串转数字
     print ssq
     return ssq
@@ -118,7 +122,8 @@ def get_web_datachart_ajax(num):
     #其实用这个 last 的方法也可以，他是根据主键后排序的来取值的。其实也很快。
     first_ball =int(TSsqShishibiao.objects.all().aggregate(Max('num')).get('num__max'))
 
-    last_ball=get_web_datachart_last()
+    last_ball=[2018052]
+    #get_web_datachart_last()
     if first_ball and last_ball:#正常情况下应该都是从第一个 url3开始
         print 'first_ball',first_ball
         print 'last_ball',last_ball[0]
@@ -156,6 +161,7 @@ def get_web_datachart_ajax(num):
             #要注意的是，类文件对象u以二进制模式操作。如果需要以文本形式处理响应数据，则需要使用codecs模块或类似方式解码数据。
 
     #print  response.getcode()
+    print "reponse geted"
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
         print response.info()
        # print req1.headers
@@ -163,7 +169,8 @@ def get_web_datachart_ajax(num):
         print 'web is down！'
         return [],'web is down'
     cont=response.read()
-    #print cont
+    print "relase main reponse :"
+    print cont
     ssq_list=re.subn(r'(\r+|\n+)+\s+','',cont) ##去除重复的内容
     # print ssq_list
     table1=re.findall(r'tbody.*?tbody',ssq_list[0]) ##找出主table
