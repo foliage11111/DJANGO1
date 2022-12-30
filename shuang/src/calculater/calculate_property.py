@@ -157,7 +157,8 @@ def cal_vertical_red(now_ball):
     num=str(now_ball.num)[4:7]
     q=now_ball.num
     try:
-        print q
+
+        print (q)
         if num=='001':
             ex_ball_list=TSsqShishibiao.objects.filter(num__lt=q,num__gt=q-1001).order_by("-num")
             if ex_ball_list:

@@ -16,8 +16,8 @@ def index(request):
     :return:
     '''
     t = loader.get_template("basic/mainFrame.html")
-
-    return HttpResponse(t.render(Context))
+    html = t.render({'now': ''})
+    return HttpResponse(html)
 
 
 def normal(request):
@@ -35,6 +35,7 @@ def normal(request):
     # for i in itemDir:
     #     print '{0} : {1}'.format(i, itemDir[i])
     Context={'ssq1':ssq1}
+
     return HttpResponse(t.render(Context))
 
 
@@ -54,7 +55,7 @@ def search_allrows(request):
             del conditions['ts.num>']
             del conditions['ts.num<']
         if conditions['limit 0,']:
-            print conditions
+            print (conditions)
         else:
             conditions['limit 0,']=50#默认只拿50个，免得崩溃
 
@@ -102,7 +103,7 @@ def all_basic_ext(request):
     for i in range(vmax):
 
         basic_list=FoliageSsq.objects.filter(num__gt=vmin,num__lte=vmin+tmp)
-        print vmin,vmin+tmp
+        print (vmin,vmin+tmp)
         vmin=vmin+tmp
 
         for i in basic_list:

@@ -55,7 +55,7 @@ def get_all_rows_cond(conditions):
 
    else:
       sql+=' order by ts.num desc limit 0,50 '
-   print sql
+   print (sql)
    cur=SqlConn()
    ssq1=cur.execute(sql)
    cur.close()
@@ -97,9 +97,9 @@ def get_all_rows():
  where ts.num = te.id  '''
 
     vorder=' order by ts.num desc'
-    limits=' limit 0,100 '
+    limits: str=' limit 0,100 '
 
-    print sql_context+vorder+limits
+    print (sql_context+vorder+limits)
     cur=SqlConn()
     ssq1=cur.execute(sql_context+vorder+limits)
     cur.close()

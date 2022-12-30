@@ -21,22 +21,24 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from shuang.src.basic.basic_controller import index, normal, search_allrows, all_fact_ext, all_basic_ext
 from shuang.src.spider.spdier_controller import spider_search
-from DJANGO1 import formula_urls
-
+from shuang.src.formula.formula_controller import formula_query, define_formula
 
 from shuang.views import test
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^shuang/index$',index), #基本求查询页面
-   # url('',index),#测试默认页面
-    url(r'^shuang/normal$',normal), #基本查询页面
-    url(r'^shuang/searchforbasic$',search_allrows), #查询所有的列 查询转跳
-    url(r'^shuang/spider$',spider_search),#爬虫页面
-    url(r'^shuang/', include('DJANGO1.formula_urls'))#
-    ,
+    #url('^',index), #默认页面
+    url('^admin/' , admin.site.urls) ,
+    url('^shuang/index$' , index) ,  # 基本求查询页面
+    # url('',index),#测试默认页面
+    url('^shuang/normal$' , normal) ,  # 基本查询页面
+    url('^shuang/searchforbasic$' , search_allrows) ,  # 查询所有的列 查询转跳
+    url('^shuang/spider$' , spider_search) ,  # 爬虫页面
+    url('^shuang/' , include('DJANGO1.formula_urls')),  #
+    url(r'^quer_formula$' , formula_query) ,
+    url(r'^define_formula$' , define_formula) ,
+
 ]
 
 urlpatterns.extend(

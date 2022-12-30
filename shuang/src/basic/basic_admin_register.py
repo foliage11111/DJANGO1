@@ -4,8 +4,7 @@ import sys
 import shuang
 from shuang.src.basic.basic_model import  TSsqShishibiao,TSsqShishibiao_ext,FoliageSsq,FoliageSsq_ext
 __author__ = 'zr'
-reload(sys)
-sys.setdefaultencoding('utf8')
+
 #todo TSsqShishibiao  and TSsqShishibiao_ext
 
 #todo FoliageSsq and FoliageSsq_ext

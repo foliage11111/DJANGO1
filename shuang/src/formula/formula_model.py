@@ -46,7 +46,7 @@ class ssq_formula_fact(models.Model):
     batch =models.CharField(null=True,max_length=100)#批次号
     now_periods= models.IntegerField(null=True) #基于计算的期数
     target_periods=models.IntegerField(null=True) #目标核对的期数
-    formula=models.ForeignKey(ssq_formula,null=True)
+    formula=models.ForeignKey(ssq_formula,null=True,on_delete=models.CASCADE)
     result =models.CharField(null=False,max_length=100) #结果是否正确
     formula_value=models.CharField(null=False,max_length=100)#结果是什么
     formula_type=models.CharField(null=True,max_length=100)#针对蓝球还是红球的杀号还是选号

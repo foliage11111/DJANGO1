@@ -49,16 +49,16 @@ INSTALLED_APPS = [
     'shuang'
 ]
 
-MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+MIDDLEWARE  = [
+    'django.middleware.security.SecurityMiddleware' ,
+    'django.contrib.sessions.middleware.SessionMiddleware' ,
+    'django.middleware.common.CommonMiddleware' ,
     # 'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware' ,
+    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware' ,
+    'django.contrib.messages.middleware.MessageMiddleware' ,
+    'django.middleware.clickjacking.XFrameOptionsMiddleware' ,
+    'django.middleware.locale.LocaleMiddleware' ,
 
 ]
 
@@ -109,7 +109,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ssq',  #sid not SERVICE_NAME
         'USER': 'root',
-        'PASSWORD': '123',
+        'PASSWORD': '123QWEasd',
         'HOST': 'localhost',
         'PORT': '3306',
     }

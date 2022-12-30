@@ -23,6 +23,5 @@ from shuang.src.formula.formula_controller import formula_query, define_formula
 from shuang.views import test
 
 urlpatterns = [
-    url(r'^quer_formula$', formula_query),
-    url(r'^define_formula$', define_formula),
+
 ]

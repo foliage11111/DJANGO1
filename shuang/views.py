@@ -12,6 +12,6 @@ def test(request):
     '''
     t = loader.get_template('base.html')
 
-    return HttpResponse(t.render(Context))
-
+   ## return HttpResponse(t.render(Context))
+    return HttpResponse(t.render({'',''}))
 
