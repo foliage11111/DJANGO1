@@ -13,7 +13,7 @@ import pymysql
 
 class SqlConn():
     def __init__(self):
-        self.conn= pymysql.connect(host='localhost',user='root',passwd='123456',db='ssq')#DBpool.pool.connection()
+        self.conn= pymysql.connect(host='localhost',user='root',passwd='123QWEasd',db='ssq')#DBpool.pool.connection()
         self.cur=self.conn.cursor()
     def cur(self):
         return self.cur()
