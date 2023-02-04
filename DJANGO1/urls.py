@@ -28,7 +28,7 @@ from shuang.views import test
 # admin.autodiscover()
 
 urlpatterns = [
-    #url('^',index), #默认页面
+    url(r'^$',index), #默认页面
     url('^admin/' , admin.site.urls) ,
     url('^shuang/index$' , index) ,  # 基本求查询页面
     # url('',index),#测试默认页面
