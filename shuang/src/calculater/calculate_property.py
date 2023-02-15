@@ -55,14 +55,14 @@ def cal_zhishu(ball):
     :param 输入Foliagessq或者Tssqshishibiao的对象:
     :return:红球质数个数
     '''
-    ssq_property=TSsqShishibiao_ext()
-    ssq_property.prime_reds=0
+    #ssq_property=TSsqShishibiao_ext()
+    prime_reds=0
     zhishu=[2,3,5,7,11,13,17,19,23,29,31]
     ssq_red=ball.get_list_red_balls_byList()
     for i in ssq_red:
         if i in zhishu:
-            ssq_property.prime_reds+=1
-    return ssq_property.prime_reds
+            prime_reds+=1
+    return prime_reds
 
 def cal_odd_reds(ball):
     '''
@@ -97,13 +97,13 @@ def cal_weihe(ball):
     :return:红球尾和，不包含蓝球
     '''
     ssq_red=ball.get_list_red_balls_byList()
-    ssq_property=TSsqShishibiao_ext()
-    ssq_property.red_weihe=0
+    #ssq_property=TSsqShishibiao_ext()
+    red_weihe=0
     for i in ssq_red:
         # print int(i)%10
         if i >10:
-            ssq_property.red_weihe+=int(i)%10
-    return ssq_property.red_weihe
+            red_weihe+=int(i)%10
+    return red_weihe
 
 
 def cal_lianhao(ball):
@@ -112,16 +112,16 @@ def cal_lianhao(ball):
     :param 输入Foliagessq或者Tssqshishibiao的对象:
     :return:红球连号个数
     '''
-    ssq_property=TSsqShishibiao_ext()
-    ssq_property.red_lianhaoshu=0
+   # ssq_property=TSsqShishibiao_ext()
+    red_lianhaoshu=0
     list=cal_horizontal_span(ball)
     for i in list:
         if i==1:
-            ssq_property.red_lianhaoshu+=1
+            red_lianhaoshu+=1
     #红球差，后一个减前一个，返回一个list，对应5个水平位移
-    if ssq_property.red_lianhaoshu>1:
-        ssq_property.red_lianhaoshu+=1
-    return ssq_property.red_lianhaoshu
+    if red_lianhaoshu>1:
+        red_lianhaoshu+=1
+    return red_lianhaoshu
 
 def cal_blue_differ(now_ball):
  '''

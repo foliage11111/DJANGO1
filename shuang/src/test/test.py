@@ -3,7 +3,7 @@
 
 __author__ = 'zr'
 import re
-import urllib2
+import urllib
 import datetime
 
 import os
@@ -106,9 +106,9 @@ def red_format(b):
     else:
         return b
 
-print red_format(34)
+print (red_format(34))
 
-print blue_format(27)
+print (blue_format(27))
 
 # ssl=TSsqShishibiao.objects.filter(num__gte=)
 # ssq_ext = cal_shishibiao_ext(ssq_tmp2)
@@ -124,7 +124,7 @@ def get_web_from_data500(num):
     '''
     #url3 = 'http://www.woying.com/kaijiang/ssqls/'+num+'.html'
     url3 = 'http://datachart.500.com/ssq/?expect='+num
-    print url3
+    print (url3)
 
     #f = urllib.urlopen(url='file:/D:\\myapplesapple_id.txt')  打开本地文件
     #f = urllib.urlopen(url='ftp://python:read@www.*****.com/')  打开ftp
@@ -135,13 +135,8 @@ def get_web_from_data500(num):
     # r.set_proxy(host, type) 准备请求到服务器。使用host替换原来的主机，使用type替换原来的请求类型。
 
     ###以上是使用urlopen直接打开的方法，下面说的是使用request对象的方法，主要目的是为了增加header，标准的urlopen也支持data和proxy，
-    header1 = {}
-    header1['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"
 
-    req1 = urllib2.Request(url3)   ##req1 = urllib2.Request(urll,'',header1)
-    req1.add_header('User-Agent',header1['User-Agent']) ##需要区别上面加header的方法，这里需要指定header里面某个关键字，然后增加字符串内容
-    # req1.set_proxy('27.38.152.195:9797','http') #设置代理
-    response=urllib2.urlopen(req1)
+    response = urllib.request.urlopen(url3)
     #print html1.read()
     # print html1.read().decode("gbk").encode("utf-8")
 
@@ -151,13 +146,13 @@ def get_web_from_data500(num):
 
     #print  response.getcode()
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
-        print response.info()
-        print req1.headers
+        print (response.info())
+
     else:
-        print 'web is down！'
+        print ('web is down！')
         return [],'web is down'
     cont=response.read()
-    print cont
+    print (cont)
     ssq_list=re.subn(r'(\r+|\n+)+\s+','',cont) ##去除重复的内容
     # print ssq_list
     table1=re.findall(r'tbody.*?tbody',ssq_list[0]) ##找出主table
@@ -171,7 +166,7 @@ def get_web_from_data500(num):
         test4 =re.findall(r'<td class="chartBall02">(.*?)</td>',char)#蓝球
         ssq=[test2[0].strip()]+test3+test4#期数里面不知道为啥就是有空格，去不掉，肯定是我对正则的理解不够
         ssq = map(int, ssq)  # 字符串转数字
-        print ssq
+        print (ssq)
         ssq1.append(ssq)
 
     #ssq1.reverse()
@@ -187,19 +182,12 @@ def get_web_datachart_last():
     :return:字符串的 list,比如 [2017117]
     '''
     url3 = 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=' + '30'
-    header1 = {}
-    header1[
-        'User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"
-
-    req1 = urllib2.Request(url3)  ##req1 = urllib2.Request(urll,'',header1)
-    req1.add_header('User-Agent', header1['User-Agent'])  ##需要区别上面加header的方法，这里需要指定header里面某个关键字，然后增加字符串内容
-    # req1.set_proxy('27.38.152.195:9797','http') #设置代理
-    response = urllib2.urlopen(req1)
+    response = urllib.request.urlopen(url3)
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
-        print response.info()
-        print req1.headers
+        print (response.info())
+
     else:
-        print 'web is down！'
+        print ('(web is down！')
         return ['web is down']
     cont=response.read()
     #print 'cont    '+cont
@@ -207,12 +195,12 @@ def get_web_datachart_last():
     # print ssq_list
     table1=re.findall(r'tbody.*?tbody',ssq_list[0]) ##找出主table
     ssq_list=re.findall(r'<td align="center">.*?</tr>',table1[0]) ##找出每一期的记录分段
-    print ssq_list
+    #print ssq_list
     test2 = re.findall(r'<td align="center">(.*?)</td>',ssq_list[-1])#期数
 
     ssq=['20'+test2[0].strip()]#期数里面不知道为啥就是有空格，去不掉，肯定是我对正则的理解不够
     ssq = map(int, ssq)  # 字符串转数字
-    print ssq
+   # print ssq
     return ssq
 
 def get_web_datachart_ajax(num):
@@ -231,8 +219,8 @@ def get_web_datachart_ajax(num):
 
     last_ball=get_web_datachart_last()
     if first_ball and last_ball:#正常情况下应该都是从第一个 url3开始
-        print 'first_ball',first_ball
-        print 'last_ball',last_ball[0]
+        print ('first_ball',first_ball)
+        print ('last_ball',last_ball[0])
         if first_ball+int(num)>=int(last_ball[0]): #如果自己的最后一个加上批次大于了网页的最大值，则用from 我的第一个 to 网页的最后一个
             url3='http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + \
                  str(first_ball)[2:] + '&to=' + str(last_ball[0])[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
@@ -241,7 +229,7 @@ def get_web_datachart_ajax(num):
             str(first_ball)[2:] + '&to=' + str(int(first_ball+ int(100)))[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
     else: #任意一个为空，则默认拿100个
         url3 = 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=' + '100'
-    print url3
+    print (url3)
 
     #f = urllib.urlopen(url='file:/D:\\myapplesapple_id.txt')  打开本地文件
     #f = urllib.urlopen(url='ftp://python:read@www.*****.com/')  打开ftp
@@ -255,10 +243,7 @@ def get_web_datachart_ajax(num):
     header1 = {}
     header1['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"
 
-    req1 = urllib2.Request(url3)   ##req1 = urllib2.Request(urll,'',header1)
-    req1.add_header('User-Agent',header1['User-Agent']) ##需要区别上面加header的方法，这里需要指定header里面某个关键字，然后增加字符串内容
-    # req1.set_proxy('27.38.152.195:9797','http') #设置代理
-    response=urllib2.urlopen(req1)
+    response = urllib.request.urlopen(url3)
     #print html1.read()
     # print html1.read().decode("gbk").encode("utf-8")
 
@@ -268,10 +253,10 @@ def get_web_datachart_ajax(num):
 
     #print  response.getcode()
     if response.getcode() == 200:  #返回200，表示正常？  3打头的一般是重定向，301是永久重定向，302是临时重定向,404表示网页不存在，403禁止访问.500系列是响应过长
-        print response.info()
+        print (response.info())
        # print req1.headers
     else:
-        print 'web is down！'
+        print ('web is down！')
         return [],'web is down'
     cont=response.read()
     #print cont
@@ -297,13 +282,13 @@ def get_web_datachart_ajax(num):
 def test():
     last = TSsqShishibiao.objects.last()
     max =TSsqShishibiao.objects.all().aggregate(Max('num'))
-    print 'num__max',max.get('num__max')
-    print last.get_all_balls_byList()
-    print last.num
-    print 'http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + str(last.num)[2:] + '&to=' + str(last.num + int(100))[2:] + '&jumpsrc=http://datachart.500.com/ssq/'
+    print ('num__max',max.get('num__max'))
+    print (last.get_all_balls_byList())
+    print (last.num)
+    print ('http://datachart.500.com/ssq/zoushi/newinc/jbzs_redblue.php?expect=all&from=' + str(last.num)[2:] + '&to=' + str(last.num + int(100))[2:] + '&jumpsrc=http://datachart.500.com/ssq/')
     return ''
 
 #test()
 #get_web_datachart_ajax(100)
 
-print 32%16
+print (32%16)

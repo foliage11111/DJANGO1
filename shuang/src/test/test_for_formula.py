@@ -65,19 +65,19 @@ formula_type='get_blue_tail_list'
 def caculate_result(now,next_ssq,formula):
     '''根据输入的第一个 ssq 和目标 ssq 以及公式 object 验证是否正确，并写入 batch'''
 ###计算结果值
-    print '开始计算公式', formula.formula_express,formula.formula_name
+    print ('开始计算公式', formula.formula_express,formula.formula_name)
     result_value=eval(formula.formula_express)
-    print 'result_value=',result_value,'now balls:',now.get_all_balls_byList()
+    print ('result_value=',result_value,'now balls:',now.get_all_balls_byList())
     formula_value=[result_value]
     if formula.formula_type=='get_blue_tail_list': #取蓝球尾数的值
         if result_value >10:
-            print 'error 余数超过10'#todo 后续需要改成 return
+            print ('error 余数超过10')#todo 后续需要改成 return)
         elif 0<=result_value<=6:
             formula_value=[10+result_value,result_value]
         elif 6<result_value<=9:
             formula_value = [result_value]
 
-    print formula_value,formula.formula_type
+    print (formula_value,formula.formula_type)
 
 ##以下为验证
 ###运行公式计算公式的结果
@@ -87,8 +87,8 @@ def caculate_result(now,next_ssq,formula):
         if formula.formula_type=='get_blue_tail_list': #取蓝球尾数的值
             for i in formula_value:
                 if i==next_ssq.b1:
-                    print 'i',i
-                    print True,next_ssq.list_all_balls()
+                    print ('i',i)
+                    print (True,next_ssq.list_all_balls())
                     return 'True',formula_value
                     # todo insert into result,需要在循环结束以后
 
@@ -132,8 +132,8 @@ def formula_test(num_start,num_range,formula_list):
 
     batch=int(time.time())
 #开始循环计算最终的校验结果
-    print ssq_list
-    print formulas_list
+    print (ssq_list)
+    print (formulas_list)
     for now_ssq in ssq_list:
         for now_formula in  formulas_list:
 

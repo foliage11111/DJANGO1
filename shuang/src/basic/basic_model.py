@@ -140,6 +140,7 @@ class TSsqShishibiao(models.Model):
         '''
         if  num_list:
             self.num=num_list[0]
+            self.taoshu=1
             self.r1=num_list[1]
             self.r2=num_list[2]
             self.r3=num_list[3]
@@ -159,6 +160,27 @@ class TSsqShishibiao(models.Model):
             else:
                 self.waijian=1
           #  print self.num,self.list_all_balls()
+
+    def chushihua_easy(self,num_list):
+        '''
+        初始化这个事实发生的期数，不关联总表
+        :param num_list: 输入[num,r1,r2,r3,r4,r5,r6,b1]
+        :return: 对象
+        '''
+        if  num_list:
+            self.num=num_list[0]
+            self.taoshu=1
+            self.r1=num_list[1]
+            self.r2=num_list[2]
+            self.r3=num_list[3]
+            self.r4=num_list[4]
+            self.r5=num_list[5]
+            self.r6=num_list[6]
+            self.b1=num_list[7]
+            self.sum1=self.r1+self.r2+self.r3+self.r4+self.r5+self.r6
+            self.sum2=self.sum1+self.b1
+            self.time=datetime.date.today()
+            self.waijian=0
 
 
     def get_all_balls_byList(self):
