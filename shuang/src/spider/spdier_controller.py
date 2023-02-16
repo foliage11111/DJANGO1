@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 import sys
 from shuang.src.basic.basic_model import TSsqShishibiao
-from shuang.src.basic.basic_controller import cal_shishibiao_ext
+from shuang.src.basic.basic_controller import cal_shishibiao_ext, update_shishibiao_ext
 from shuang.src.spider.pachong import get_web,get_web_datachart_ajax
 
 __author__ = 'zr'
@@ -43,6 +43,7 @@ def spider_search(request):
                 if return_list:
                     print ('全部插入完成',return_list)
                     return_code[0] = '全部插入完成'
+                    update_shishibiao_ext()
                 else:
                     return_code[0] = '没有更新的数据，未发生数据写入'
             else:

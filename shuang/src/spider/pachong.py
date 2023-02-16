@@ -104,7 +104,7 @@ def get_web_datachart_ajax(num):
     #其实用这个 last 的方法也可以，他是根据主键后排序的来取值的。其实也很快。
     first_ball =int(TSsqShishibiao.objects.all().aggregate(Max('num')).get('num__max'))
 
-    last_ball=[2023011]
+    last_ball=[2023044]
     #get_web_datachart_last()
     if first_ball and last_ball:#正常情况下应该都是从第一个 url3开始
         print ('first_ball',first_ball)
@@ -145,7 +145,7 @@ def get_web_datachart_ajax(num):
 
         ssq1 =[]
 
-    # print ssq_list
+        #print (ssq_list)
         for char in ssq_list:#制作成为list然后塞入一个list#
             test2 = re.findall(r'<td align="center">(.*?)</td>',char)#期数
             test3 =re.findall(r'<td class="chartBall01">(.*?)</td>',char)#红球
